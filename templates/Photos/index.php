@@ -1,0 +1,58 @@
+<?php
+/**
+ * @var \App\View\AppView $this
+ * @var \App\Model\Entity\Photo[]|\Cake\Collection\CollectionInterface $photos
+ */
+?>
+<div class="photos index content">
+    <?= $this->Html->link(__('New Photo'), ['action' => 'add'], ['class' => 'button float-right']) ?>
+    <h3><?= __('Photos') ?></h3>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th><?= $this->Paginator->sort('id') ?></th>
+                    <th><?= $this->Paginator->sort('category_id') ?></th>
+                    <th><?= $this->Paginator->sort('name') ?></th>
+                    <th><?= $this->Paginator->sort('description') ?></th>
+                    <th><?= $this->Paginator->sort('res_width') ?></th>
+                    <th><?= $this->Paginator->sort('res_height') ?></th>
+                    <th><?= $this->Paginator->sort('price') ?></th>
+                    <th><?= $this->Paginator->sort('create_date') ?></th>
+                    <th><?= $this->Paginator->sort('file_name') ?></th>
+                    <th class="actions"><?= __('Actions') ?></th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($photos as $photo): ?>
+                <tr>
+                    <td><?= $this->Number->format($photo->id) ?></td>
+                    <td><?= $photo->has('category') ? $this->Html->link($photo->category->name, ['controller' => 'Categories', 'action' => 'view', $photo->category->id]) : '' ?></td>
+                    <td><?= h($photo->name) ?></td>
+                    <td><?= h($photo->description) ?></td>
+                    <td><?= $this->Number->format($photo->res_width) ?></td>
+                    <td><?= $this->Number->format($photo->res_height) ?></td>
+                    <td><?= $this->Number->format($photo->price) ?></td>
+                    <td><?= h($photo->create_date) ?></td>
+                    <td><?= h($photo->file_name) ?></td>
+                    <td class="actions">
+                        <?= $this->Html->link(__('View'), ['action' => 'view', $photo->id]) ?>
+                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $photo->id]) ?>
+                        <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $photo->id], ['confirm' => __('Are you sure you want to delete # {0}?', $photo->id)]) ?>
+                    </td>
+                </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+    <div class="paginator">
+        <ul class="pagination">
+            <?= $this->Paginator->first('<< ' . __('first')) ?>
+            <?= $this->Paginator->prev('< ' . __('previous')) ?>
+            <?= $this->Paginator->numbers() ?>
+            <?= $this->Paginator->next(__('next') . ' >') ?>
+            <?= $this->Paginator->last(__('last') . ' >>') ?>
+        </ul>
+        <p><?= $this->Paginator->counter(__('Page {{page}} of {{pages}}, showing {{current}} record(s) out of {{count}} total')) ?></p>
+    </div>
+</div>
