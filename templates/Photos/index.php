@@ -34,7 +34,7 @@
                     <td><?= $this->Number->format($photo->res_height) ?></td>
                     <td><?= $this->Number->format($photo->price) ?></td>
                     <td><?= h($photo->create_date) ?></td>
-                    <td><?= h($photo->file_name) ?></td>
+                    <td><?= $this->Html->image(ORIGINAL_PHOTO_PATH . DS . $photo->file_name, ['alt' => $photo->file_name]) ?></td>
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $photo->id]) ?>
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $photo->id]) ?>
