@@ -92,3 +92,7 @@ define('CAKE_CORE_INCLUDE_PATH', ROOT . DS . 'vendor' . DS . 'cakephp' . DS . 'c
  */
 define('CORE_PATH', CAKE_CORE_INCLUDE_PATH . DS);
 define('CAKE', CORE_PATH . 'src' . DS);
+
+/* Path to photo directories */
+define('ORIGINAL_PHOTO_PATH', 'original-photos');
+define('WATERMARK_PHOTO_PATH', 'watermark-photos');
