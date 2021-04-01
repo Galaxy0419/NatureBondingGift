@@ -23,7 +23,6 @@
                     echo $this->Form->control('res_width');
                     echo $this->Form->control('res_height');
                     echo $this->Form->control('price');
-                    echo $this->Form->control('create_date');
                     echo $this->Form->control('file_name', ['label' => 'Choose a Photo', 'type' => 'file', 'accept' => 'image/jpeg,image/png']);
                 ?>
             </fieldset>
