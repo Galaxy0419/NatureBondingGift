@@ -23,7 +23,9 @@
                     echo $this->Form->control('res_width');
                     echo $this->Form->control('res_height');
                     echo $this->Form->control('price');
-                    echo $this->Form->control('file_name', ['label' => 'Choose a Photo', 'type' => 'file', 'accept' => 'image/jpeg,image/png']);
+                    echo $this->Form->control('file_name', [
+                        'label' => 'Choose a Photo', 'type' => 'file',
+                        'accept' => 'image/jpeg,image/png', 'error' => false]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
