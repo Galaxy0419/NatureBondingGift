@@ -15,8 +15,7 @@
                     <th><?= $this->Paginator->sort('category_id') ?></th>
                     <th><?= $this->Paginator->sort('name') ?></th>
                     <th><?= $this->Paginator->sort('description') ?></th>
-                    <th><?= $this->Paginator->sort('res_width') ?></th>
-                    <th><?= $this->Paginator->sort('res_height') ?></th>
+                    <th><?= $this->Paginator->sort('res_width', 'Resolution') ?></th>
                     <th><?= $this->Paginator->sort('price') ?></th>
                     <th><?= $this->Paginator->sort('create_date') ?></th>
                     <th><?= $this->Paginator->sort('file_name') ?></th>
@@ -30,8 +29,7 @@
                     <td><?= $photo->has('category') ? $this->Html->link($photo->category->name, ['controller' => 'Categories', 'action' => 'view', $photo->category->id]) : '' ?></td>
                     <td><?= h($photo->name) ?></td>
                     <td><?= h($photo->description) ?></td>
-                    <td><?= $this->Number->format($photo->res_width) ?></td>
-                    <td><?= $this->Number->format($photo->res_height) ?></td>
+                    <td><?= h($photo->res_width . 'x' . $photo->res_height)?></td>
                     <td><?= $this->Number->format($photo->price) ?></td>
                     <td><?= h($photo->create_date) ?></td>
                     <td><?= $this->Html->image(ORIGINAL_PHOTO_PATH . DS . $photo->file_name, ['alt' => $photo->file_name]) ?></td>
