@@ -20,8 +20,6 @@
                     echo $this->Form->control('category_id', ['options' => $categories]);
                     echo $this->Form->control('name');
                     echo $this->Form->control('description');
-                    echo $this->Form->control('res_width');
-                    echo $this->Form->control('res_height');
                     echo $this->Form->control('price');
                     echo $this->Form->control('file_name', [
                         'label' => 'Choose a Photo', 'type' => 'file',
