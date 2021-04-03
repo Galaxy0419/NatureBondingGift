@@ -17,6 +17,7 @@
             <fieldset>
                 <legend><?= __('Add Photo') ?></legend>
                 <?php
+                    echo $this->Html->link('Add', 'categories/add', ['class' => 'button', 'style' => 'float:right']);
                     echo $this->Form->control('category_id', ['options' => $categories]);
                     echo $this->Form->control('name');
                     echo $this->Form->control('description');
