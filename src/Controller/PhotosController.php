@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Imagick;
+
 define('PHOTO_FILE_FORMATS', ['image/jpeg', 'image/png']);
 /**
  * Photos Controller
@@ -47,6 +49,7 @@ class PhotosController extends AppController
      * Add method
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
+     * @throws \ImagickException
      */
     public function add()
     {
@@ -60,6 +63,13 @@ class PhotosController extends AppController
                 if (in_array($attachment->getClientMediaType(), PHOTO_FILE_FORMATS)) {
                     $clientFileName = $attachment->getClientFilename();
                     $photo->file_name = $clientFileName;
+
+                    $tmpName = $attachment->getStream()->getMetadata('uri');
+                    $imagickImg = new Imagick($tmpName);
+                    $geo = $imagickImg->getImageGeometry();
+                    $photo->res_width = $geo['width'];
+                    $photo->res_height = $geo['height'];
+
                     $attachment->moveTo(WWW_ROOT . 'img' . DS . ORIGINAL_PHOTO_PATH . DS . $clientFileName);
 
                     if ($this->Photos->save($photo)) {
