@@ -107,21 +107,52 @@ class PhotosController extends AppController
      * @param string|null $id Photo id.
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @throws \ImagickException
      */
     public function edit($id = null)
     {
-        $photo = $this->Photos->get($id, [
-            'contain' => [],
-        ]);
+        $photo = $this->Photos->get($id, ['contain' => []]);
+
         if ($this->request->is(['patch', 'post', 'put'])) {
             $photo = $this->Photos->patchEntity($photo, $this->request->getData());
-            if ($this->Photos->save($photo)) {
-                $this->Flash->success(__('The photo has been saved.'));
+            $attachment = $this->request->getData('file_name');
 
-                return $this->redirect(['action' => 'index']);
+            if (!$attachment->getError()) {
+                if (in_array($attachment->getClientMediaType(), PHOTO_FILE_FORMATS)) {
+                    $clientFileName = $attachment->getClientFilename();
+                    $photo->file_name = $clientFileName;
+
+                    $tmpName = $attachment->getStream()->getMetadata('uri');
+                    $imagickImg = new Imagick($tmpName);
+                    $geo = $imagickImg->getImageGeometry();
+                    $photo->res_width = $geo['width'];
+                    $photo->res_height = $geo['height'];
+
+                    $drawSettings = new ImagickDraw();
+                    $drawSettings->setFillColor(new ImagickPixel('white'));
+                    $drawSettings->setFillOpacity(0.25);
+                    $drawSettings->setFontSize(($geo['width'] + $geo['height']) >> 4);
+                    $drawSettings->setGravity(Imagick::GRAVITY_CENTER);
+                    $imagickImg->annotateImage($drawSettings, 0, 0,
+                        rad2deg(atan($geo['height'] / $geo['width'])), 'Nature\'s Bonding Gift');
+                    $imagickImg->writeImage(WWW_ROOT . 'img' . DS . WATERMARK_PHOTO_PATH . DS . $clientFileName);
+
+                    $attachment->moveTo(WWW_ROOT . 'img' . DS . ORIGINAL_PHOTO_PATH . DS . $clientFileName);
+
+                    if ($this->Photos->save($photo)) {
+                        $this->Flash->success(__('The photo has been saved.'));
+                        return $this->redirect(['action' => 'index']);
+                    } else {
+                        $this->Flash->error(__('The file name already exists. Please rename the file first.'));
+                    }
+                } else {
+                    $this->Flash->error(__('The photo format is not supported. (Supported formats: *.jpeg, *.jpg, *.png)'));
+                }
+            } else {
+                $this->Flash->error(__('The photo could not be uploaded. Please try again.'));
             }
-            $this->Flash->error(__('The photo could not be saved. Please, try again.'));
         }
+
         $categories = $this->Photos->Categories->find('list', ['limit' => 200]);
         $this->set(compact('photo', 'categories'));
     }
