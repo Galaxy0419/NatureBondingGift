@@ -11,7 +11,7 @@
             <?= $this->Form->postLink(
                 __('Delete'),
                 ['action' => 'delete', $photo->id],
-                ['confirm' => __('Are you sure you want to delete # {0}?', $photo->id), 'class' => 'side-nav-item']
+                ['confirm' => __('Are you sure you want to delete "{0}"?', $photo->name), 'class' => 'side-nav-item']
             ) ?>
             <?= $this->Html->link(__('List Photos'), ['action' => 'index'], ['class' => 'side-nav-item']) ?>
         </div>
