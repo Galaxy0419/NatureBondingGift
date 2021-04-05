@@ -168,7 +168,10 @@ class PhotosController extends AppController
     {
         $this->request->allowMethod(['post', 'delete']);
         $photo = $this->Photos->get($id);
-        if ($this->Photos->delete($photo)) {
+
+        if ($this->Photos->delete($photo)
+                && unlink(WWW_ROOT . 'img' . DS . ORIGINAL_PHOTO_PATH . DS . $photo->file_name)
+                && unlink(WWW_ROOT . 'img' . DS . WATERMARK_PHOTO_PATH . DS . $photo->file_name)) {
             $this->Flash->success(__('The photo has been deleted.'));
         } else {
             $this->Flash->error(__('The photo could not be deleted. Please, try again.'));
