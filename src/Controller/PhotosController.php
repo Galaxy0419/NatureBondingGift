@@ -5,7 +5,9 @@ namespace App\Controller;
 
 use Imagick;
 use ImagickDraw;
+use ImagickException;
 use ImagickPixel;
+use Psr\Http\Message\UploadedFileInterface;
 
 use App\Model\Entity\Photo;
 
@@ -66,10 +68,38 @@ class PhotosController extends AppController
     }
 
     /**
+     * Detect resolution and watermark photo
+     *
+     * @param UploadedFileInterface $attachment Attachment uploaded
+     * @param Photo $photo Photo entity
+     * @return null
+     * @throws ImagickException
+     */
+    private function detectResolutionAndWatermark(UploadedFileInterface $attachment, Photo $photo)
+    {
+        $tmpName = $attachment->getStream()->getMetadata('uri');
+        $imagickImg = new Imagick($tmpName);
+        $geo = $imagickImg->getImageGeometry();
+        $photo->res_width = $geo['width'];
+        $photo->res_height = $geo['height'];
+
+        $drawSettings = new ImagickDraw();
+        $drawSettings->setFillColor(new ImagickPixel('white'));
+        $drawSettings->setFillOpacity(0.25);
+        $drawSettings->setFontSize(($geo['width'] + $geo['height']) >> 4);
+        $drawSettings->setGravity(Imagick::GRAVITY_CENTER);
+        $imagickImg->annotateImage($drawSettings, 0, 0,
+            rad2deg(atan($geo['height'] / $geo['width'])), 'Nature\'s Bonding Gift');
+        $imagickImg->writeImage(WWW_ROOT . 'img' . DS . WATERMARK_PHOTO_PATH . DS . $photo->file_name);
+
+        $attachment->moveTo(WWW_ROOT . 'img' . DS . ORIGINAL_PHOTO_PATH . DS . $photo->file_name);
+    }
+
+    /**
      * Add method
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
-     * @throws \ImagickException
+     * @throws ImagickException
      */
     public function add()
     {
@@ -84,23 +114,7 @@ class PhotosController extends AppController
 
             if (!$attachment->getError()) {
                 if (in_array($attachment->getClientMediaType(), PHOTO_FILE_FORMATS)) {
-                    $tmpName = $attachment->getStream()->getMetadata('uri');
-                    $imagickImg = new Imagick($tmpName);
-                    $geo = $imagickImg->getImageGeometry();
-                    $photo->res_width = $geo['width'];
-                    $photo->res_height = $geo['height'];
-
-                    $drawSettings = new ImagickDraw();
-                    $drawSettings->setFillColor(new ImagickPixel('white'));
-                    $drawSettings->setFillOpacity(0.25);
-                    $drawSettings->setFontSize(($geo['width'] + $geo['height']) >> 4);
-                    $drawSettings->setGravity(Imagick::GRAVITY_CENTER);
-                    $imagickImg->annotateImage($drawSettings, 0, 0,
-                        rad2deg(atan($geo['height'] / $geo['width'])), 'Nature\'s Bonding Gift');
-                    $imagickImg->writeImage(WWW_ROOT . 'img' . DS . WATERMARK_PHOTO_PATH . DS . $photo->file_name);
-
-                    $attachment->moveTo(WWW_ROOT . 'img' . DS . ORIGINAL_PHOTO_PATH . DS . $photo->file_name);
-
+                    $this->detectResolutionAndWatermark($attachment, $photo);
                     $this->savePhoto($photo);
                 } else {
                     $this->Flash->error(__('The photo format is not supported. (Supported formats: *.jpeg, *.jpg, *.png)'));
@@ -120,7 +134,7 @@ class PhotosController extends AppController
      * @param string|null $id Photo id.
      * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     * @throws \ImagickException
+     * @throws ImagickException
      */
     public function edit($id = null)
     {
@@ -138,23 +152,7 @@ class PhotosController extends AppController
                     $oldFileName = $photo->file_name;
                     $requestData['file_name'] = $attachment->getClientFilename();
                     $photo = $this->Photos->patchEntity($photo, $requestData);
-
-                    $tmpName = $attachment->getStream()->getMetadata('uri');
-                    $imagickImg = new Imagick($tmpName);
-                    $geo = $imagickImg->getImageGeometry();
-                    $photo->res_width = $geo['width'];
-                    $photo->res_height = $geo['height'];
-
-                    $drawSettings = new ImagickDraw();
-                    $drawSettings->setFillColor(new ImagickPixel('white'));
-                    $drawSettings->setFillOpacity(0.25);
-                    $drawSettings->setFontSize(($geo['width'] + $geo['height']) >> 4);
-                    $drawSettings->setGravity(Imagick::GRAVITY_CENTER);
-                    $imagickImg->annotateImage($drawSettings, 0, 0,
-                        rad2deg(atan($geo['height'] / $geo['width'])), 'Nature\'s Bonding Gift');
-                    $imagickImg->writeImage(WWW_ROOT . 'img' . DS . WATERMARK_PHOTO_PATH . DS . $photo->file_name);
-
-                    $attachment->moveTo(WWW_ROOT . 'img' . DS . ORIGINAL_PHOTO_PATH . DS . $photo->file_name);
+                    $this->detectResolutionAndWatermark($attachment, $photo);
 
                     unlink(WWW_ROOT . 'img' . DS . ORIGINAL_PHOTO_PATH . DS . $oldFileName);
                     unlink(WWW_ROOT . 'img' . DS . WATERMARK_PHOTO_PATH . DS . $oldFileName);
@@ -166,7 +164,6 @@ class PhotosController extends AppController
             } else if ($err == UPLOAD_ERR_NO_FILE) {
                 $requestData['file_name'] = $photo->file_name;
                 $photo = $this->Photos->patchEntity($photo, $requestData);
-
                 $this->savePhoto($photo);
             } else {
                 $this->Flash->error(__('The photo could not be uploaded. Please try again.'));
