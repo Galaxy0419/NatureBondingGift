@@ -13,18 +13,18 @@
     </aside>
     <div class="column-responsive column-80">
         <div class="photos form content">
-            <?= $this->Form->create($photo) ?>
+            <?= $this->Form->create($photo, ['type' => 'file']) ?>
             <fieldset>
                 <legend><?= __('Add Photo') ?></legend>
                 <?php
+                    echo $this->Html->link('Add', 'categories/add', ['class' => 'button', 'style' => 'float:right']);
                     echo $this->Form->control('category_id', ['options' => $categories]);
                     echo $this->Form->control('name');
                     echo $this->Form->control('description');
-                    echo $this->Form->control('res_width');
-                    echo $this->Form->control('res_height');
                     echo $this->Form->control('price');
-                    echo $this->Form->control('create_date');
-                    echo $this->Form->control('file_name');
+                    echo $this->Form->control('file_name', [
+                        'label' => 'Choose a Photo', 'type' => 'file',
+                        'accept' => 'image/jpeg,image/png', 'error' => false]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>

@@ -41,3 +41,14 @@ nbproject/*
 .vscode
 # Sass preprocessor
 .sass-cache/
+
+# Photo directories #
+#####################
+# Original photos
+webroot/img/original-photos/*.jpeg
+webroot/img/original-photos/*.jpg
+webroot/img/original-photos/*.png
+# Watermark photos
+webroot/img/watermark-photos/*.jpeg
+webroot/img/watermark-photos/*.jpg
+webroot/img/watermark-photos/*.png

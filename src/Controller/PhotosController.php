@@ -3,6 +3,9 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Imagick;
+
+define('PHOTO_FILE_FORMATS', ['image/jpeg', 'image/png']);
 /**
  * Photos Controller
  *
@@ -46,19 +49,43 @@ class PhotosController extends AppController
      * Add method
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
+     * @throws \ImagickException
      */
     public function add()
     {
         $photo = $this->Photos->newEmptyEntity();
+
         if ($this->request->is('post')) {
             $photo = $this->Photos->patchEntity($photo, $this->request->getData());
-            if ($this->Photos->save($photo)) {
-                $this->Flash->success(__('The photo has been saved.'));
+            $attachment = $this->request->getData('file_name');
 
-                return $this->redirect(['action' => 'index']);
+            if (!$attachment->getError()) {
+                if (in_array($attachment->getClientMediaType(), PHOTO_FILE_FORMATS)) {
+                    $clientFileName = $attachment->getClientFilename();
+                    $photo->file_name = $clientFileName;
+
+                    $tmpName = $attachment->getStream()->getMetadata('uri');
+                    $imagickImg = new Imagick($tmpName);
+                    $geo = $imagickImg->getImageGeometry();
+                    $photo->res_width = $geo['width'];
+                    $photo->res_height = $geo['height'];
+
+                    $attachment->moveTo(WWW_ROOT . 'img' . DS . ORIGINAL_PHOTO_PATH . DS . $clientFileName);
+
+                    if ($this->Photos->save($photo)) {
+                        $this->Flash->success(__('The photo has been saved.'));
+                        return $this->redirect(['action' => 'index']);
+                    } else {
+                        $this->Flash->error(__('The file name already exists. Please rename the file first.'));
+                    }
+                } else {
+                    $this->Flash->error(__('The photo format is not supported. (Supported formats: *.jpeg, *.jpg, *.png)'));
+                }
+            } else {
+                $this->Flash->error(__('The photo could not be uploaded. Please try again.'));
             }
-            $this->Flash->error(__('The photo could not be saved. Please, try again.'));
         }
+
         $categories = $this->Photos->Categories->find('list', ['limit' => 200]);
         $this->set(compact('photo', 'categories'));
     }
