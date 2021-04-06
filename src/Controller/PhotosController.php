@@ -114,13 +114,17 @@ class PhotosController extends AppController
         $photo = $this->Photos->get($id, ['contain' => []]);
 
         if ($this->request->is(['patch', 'post', 'put'])) {
-            $photo = $this->Photos->patchEntity($photo, $this->request->getData());
-            $attachment = $this->request->getData('file_name');
+            $attachment = $this->request->getUploadedFile('file');
+            $err = $attachment->getError();
 
-            if (!$attachment->getError()) {
+            $requestData = $this->request->getData();
+            unset($requestData['file']);
+
+            if ($err == UPLOAD_ERR_OK) {
                 if (in_array($attachment->getClientMediaType(), PHOTO_FILE_FORMATS)) {
-                    $clientFileName = $attachment->getClientFilename();
-                    $photo->file_name = $clientFileName;
+                    $oldFileName = $photo->file_name;
+                    $requestData['file_name'] = $attachment->getClientFilename();
+                    $photo = $this->Photos->patchEntity($photo, $requestData);
 
                     $tmpName = $attachment->getStream()->getMetadata('uri');
                     $imagickImg = new Imagick($tmpName);
@@ -135,9 +139,12 @@ class PhotosController extends AppController
                     $drawSettings->setGravity(Imagick::GRAVITY_CENTER);
                     $imagickImg->annotateImage($drawSettings, 0, 0,
                         rad2deg(atan($geo['height'] / $geo['width'])), 'Nature\'s Bonding Gift');
-                    $imagickImg->writeImage(WWW_ROOT . 'img' . DS . WATERMARK_PHOTO_PATH . DS . $clientFileName);
+                    $imagickImg->writeImage(WWW_ROOT . 'img' . DS . WATERMARK_PHOTO_PATH . DS . $photo->file_name);
 
-                    $attachment->moveTo(WWW_ROOT . 'img' . DS . ORIGINAL_PHOTO_PATH . DS . $clientFileName);
+                    $attachment->moveTo(WWW_ROOT . 'img' . DS . ORIGINAL_PHOTO_PATH . DS . $photo->file_name);
+
+                    unlink(WWW_ROOT . 'img' . DS . ORIGINAL_PHOTO_PATH . DS . $oldFileName);
+                    unlink(WWW_ROOT . 'img' . DS . WATERMARK_PHOTO_PATH . DS . $oldFileName);
 
                     if ($this->Photos->save($photo)) {
                         $this->Flash->success(__('The photo has been saved.'));
@@ -147,6 +154,16 @@ class PhotosController extends AppController
                     }
                 } else {
                     $this->Flash->error(__('The photo format is not supported. (Supported formats: *.jpeg, *.jpg, *.png)'));
+                }
+            } else if ($err == UPLOAD_ERR_NO_FILE) {
+                $requestData['file_name'] = $photo->file_name;
+                $photo = $this->Photos->patchEntity($photo, $requestData);
+
+                if ($this->Photos->save($photo)) {
+                    $this->Flash->success(__('The photo has been saved.'));
+                    return $this->redirect(['action' => 'index']);
+                } else {
+                    $this->Flash->error(__('The file name already exists. Please rename the file first.'));
                 }
             } else {
                 $this->Flash->error(__('The photo could not be uploaded. Please try again.'));

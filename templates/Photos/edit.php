@@ -27,8 +27,8 @@
                     echo $this->Form->control('name');
                     echo $this->Form->control('description');
                     echo $this->Form->control('price');
-                    echo $this->Form->control('file_name', [
-                        'label' => 'Choose a Photo', 'type' => 'file',
+                    echo $this->Form->control('file', [
+                        'label' => 'Choose a new Photo (Optional)', 'type' => 'file', 'required' => false,
                         'accept' => 'image/jpeg,image/png', 'error' => false]);
                 ?>
             </fieldset>
