@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Imagick;
+use ImagickDraw;
+use ImagickPixel;
 
 define('PHOTO_FILE_FORMATS', ['image/jpeg', 'image/png']);
 /**
@@ -69,6 +71,15 @@ class PhotosController extends AppController
                     $geo = $imagickImg->getImageGeometry();
                     $photo->res_width = $geo['width'];
                     $photo->res_height = $geo['height'];
+
+                    $drawSettings = new ImagickDraw();
+                    $drawSettings->setFillColor(new ImagickPixel('white'));
+                    $drawSettings->setFillOpacity(0.25);
+                    $drawSettings->setFontSize(($geo['width'] + $geo['height']) >> 4);
+                    $drawSettings->setGravity(Imagick::GRAVITY_CENTER);
+                    $imagickImg->annotateImage($drawSettings, 0, 0,
+                        rad2deg(atan($geo['height'] / $geo['width'])), 'Nature\'s Bonding Gift');
+                    $imagickImg->writeImage(WWW_ROOT . 'img' . DS . WATERMARK_PHOTO_PATH . DS . $clientFileName);
 
                     $attachment->moveTo(WWW_ROOT . 'img' . DS . ORIGINAL_PHOTO_PATH . DS . $clientFileName);
 
