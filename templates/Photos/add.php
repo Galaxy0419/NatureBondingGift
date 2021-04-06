@@ -22,7 +22,7 @@
                     echo $this->Form->control('name');
                     echo $this->Form->control('description');
                     echo $this->Form->control('price');
-                    echo $this->Form->control('file_name', [
+                    echo $this->Form->control('file', [
                         'label' => 'Choose a Photo', 'type' => 'file',
                         'accept' => 'image/jpeg,image/png', 'error' => false]);
                 ?>

@@ -58,14 +58,14 @@ class PhotosController extends AppController
         $photo = $this->Photos->newEmptyEntity();
 
         if ($this->request->is('post')) {
-            $photo = $this->Photos->patchEntity($photo, $this->request->getData());
-            $attachment = $this->request->getData('file_name');
+            $attachment = $this->request->getUploadedFile('file');
+            $requestData = $this->request->getData();
+            unset($requestData['file']);
+            $requestData['file_name'] = $attachment->getClientFilename();
+            $photo = $this->Photos->patchEntity($photo, $requestData);
 
             if (!$attachment->getError()) {
                 if (in_array($attachment->getClientMediaType(), PHOTO_FILE_FORMATS)) {
-                    $clientFileName = $attachment->getClientFilename();
-                    $photo->file_name = $clientFileName;
-
                     $tmpName = $attachment->getStream()->getMetadata('uri');
                     $imagickImg = new Imagick($tmpName);
                     $geo = $imagickImg->getImageGeometry();
@@ -79,9 +79,9 @@ class PhotosController extends AppController
                     $drawSettings->setGravity(Imagick::GRAVITY_CENTER);
                     $imagickImg->annotateImage($drawSettings, 0, 0,
                         rad2deg(atan($geo['height'] / $geo['width'])), 'Nature\'s Bonding Gift');
-                    $imagickImg->writeImage(WWW_ROOT . 'img' . DS . WATERMARK_PHOTO_PATH . DS . $clientFileName);
+                    $imagickImg->writeImage(WWW_ROOT . 'img' . DS . WATERMARK_PHOTO_PATH . DS . $photo->file_name);
 
-                    $attachment->moveTo(WWW_ROOT . 'img' . DS . ORIGINAL_PHOTO_PATH . DS . $clientFileName);
+                    $attachment->moveTo(WWW_ROOT . 'img' . DS . ORIGINAL_PHOTO_PATH . DS . $photo->file_name);
 
                     if ($this->Photos->save($photo)) {
                         $this->Flash->success(__('The photo has been saved.'));
