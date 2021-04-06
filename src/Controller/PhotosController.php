@@ -27,11 +27,8 @@ class PhotosController extends AppController
      */
     public function index()
     {
-        $this->paginate = [
-            'contain' => ['Categories'],
-        ];
+        $this->paginate = ['contain' => ['Categories']];
         $photos = $this->paginate($this->Photos);
-
         $this->set(compact('photos'));
     }
 
@@ -44,10 +41,7 @@ class PhotosController extends AppController
      */
     public function view($id = null)
     {
-        $photo = $this->Photos->get($id, [
-            'contain' => ['Categories'],
-        ]);
-
+        $photo = $this->Photos->get($id, ['contain' => ['Categories']]);
         $this->set(compact('photo'));
     }
 
