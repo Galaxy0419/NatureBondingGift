@@ -7,6 +7,8 @@ use Imagick;
 use ImagickDraw;
 use ImagickPixel;
 
+use App\Model\Entity\Photo;
+
 define('PHOTO_FILE_FORMATS', ['image/jpeg', 'image/png']);
 /**
  * Photos Controller
@@ -48,6 +50,22 @@ class PhotosController extends AppController
     }
 
     /**
+     * Save photo entity method
+     *
+     * @param Photo $photo Photo entity
+     * @return null
+     */
+    private function savePhoto(Photo $photo)
+    {
+        if ($this->Photos->save($photo)) {
+            $this->Flash->success(__('The photo has been saved.'));
+            return $this->redirect(['action' => 'index']);
+        } else {
+            $this->Flash->error(__('The file name already exists. Please rename the file first.'));
+        }
+    }
+
+    /**
      * Add method
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.
@@ -83,12 +101,7 @@ class PhotosController extends AppController
 
                     $attachment->moveTo(WWW_ROOT . 'img' . DS . ORIGINAL_PHOTO_PATH . DS . $photo->file_name);
 
-                    if ($this->Photos->save($photo)) {
-                        $this->Flash->success(__('The photo has been saved.'));
-                        return $this->redirect(['action' => 'index']);
-                    } else {
-                        $this->Flash->error(__('The file name already exists. Please rename the file first.'));
-                    }
+                    $this->savePhoto($photo);
                 } else {
                     $this->Flash->error(__('The photo format is not supported. (Supported formats: *.jpeg, *.jpg, *.png)'));
                 }
@@ -146,12 +159,7 @@ class PhotosController extends AppController
                     unlink(WWW_ROOT . 'img' . DS . ORIGINAL_PHOTO_PATH . DS . $oldFileName);
                     unlink(WWW_ROOT . 'img' . DS . WATERMARK_PHOTO_PATH . DS . $oldFileName);
 
-                    if ($this->Photos->save($photo)) {
-                        $this->Flash->success(__('The photo has been saved.'));
-                        return $this->redirect(['action' => 'index']);
-                    } else {
-                        $this->Flash->error(__('The file name already exists. Please rename the file first.'));
-                    }
+                    $this->savePhoto($photo);
                 } else {
                     $this->Flash->error(__('The photo format is not supported. (Supported formats: *.jpeg, *.jpg, *.png)'));
                 }
@@ -159,12 +167,7 @@ class PhotosController extends AppController
                 $requestData['file_name'] = $photo->file_name;
                 $photo = $this->Photos->patchEntity($photo, $requestData);
 
-                if ($this->Photos->save($photo)) {
-                    $this->Flash->success(__('The photo has been saved.'));
-                    return $this->redirect(['action' => 'index']);
-                } else {
-                    $this->Flash->error(__('The file name already exists. Please rename the file first.'));
-                }
+                $this->savePhoto($photo);
             } else {
                 $this->Flash->error(__('The photo could not be uploaded. Please try again.'));
             }
