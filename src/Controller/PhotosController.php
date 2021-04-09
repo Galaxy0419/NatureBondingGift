@@ -33,19 +33,6 @@ class PhotosController extends AppController
     }
 
     /**
-     * View method
-     *
-     * @param string|null $id Photo id.
-     * @return \Cake\Http\Response|null|void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $photo = $this->Photos->get($id, ['contain' => ['Categories']]);
-        $this->set(compact('photo'));
-    }
-
-    /**
      * Save photo entity method
      *
      * @param Photo $photo Photo entity
