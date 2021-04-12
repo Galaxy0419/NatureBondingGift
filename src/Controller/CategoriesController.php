@@ -24,22 +24,6 @@ class CategoriesController extends AppController
     }
 
     /**
-     * View method
-     *
-     * @param string|null $id Category id.
-     * @return \Cake\Http\Response|null|void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function view($id = null)
-    {
-        $category = $this->Categories->get($id, [
-            'contain' => ['Photos'],
-        ]);
-
-        $this->set(compact('category'));
-    }
-
-    /**
      * Add method
      *
      * @return \Cake\Http\Response|null|void Redirects on successful add, renders view otherwise.

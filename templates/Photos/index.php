@@ -35,7 +35,6 @@
                     <td><?= $this->Html->image(ORIGINAL_PHOTO_PATH . DS . $photo->file_name,
                             ['alt' => $photo->file_name, 'url' => 'img' . DS . ORIGINAL_PHOTO_PATH . DS . $photo->file_name]) ?></td>
                     <td class="actions">
-                        <?= $this->Html->link(__('View'), ['action' => 'view', $photo->id]) ?>
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $photo->id]) ?>
                         <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $photo->id],
                             ['confirm' => __('Are you sure you want to delete "{0}"?', $photo->name)]) ?>
