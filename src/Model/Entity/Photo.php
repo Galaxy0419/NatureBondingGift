@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\Model\Entity;
 
+use Cake\I18n\FrozenTime;
 use Cake\ORM\Entity;
 
 /**
@@ -42,4 +43,15 @@ class Photo extends Entity
         'file_name' => true,
         'category' => true,
     ];
+
+    /**
+     * Accessor for create_date to set timezone correctly for dates/time.
+     *
+     * @param FrozenTime $create_date
+     * @return FrozenTime
+     */
+    protected function _getCreateDate(FrozenTime $create_date): FrozenTime
+    {
+        return $create_date->setTimezone('Australia/Melbourne');
+    }
 }
