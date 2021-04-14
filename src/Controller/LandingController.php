@@ -10,10 +10,10 @@ class LandingController extends AppController{
 
     public function home()
     {
-        $this->viewBuilder()->setLayout('bones');
-        $this->loadModel('Photos');
-        $photos= $this->Photos->find();
-        $this->set('photos',$photos);
+        $this->viewBuilder()->setLayout('bones'); //uses bones.php in layout folder as the base layout.
+        $this->loadModel('Photos'); //loading Photos model to retrieve photo data from the database.
+        $photos= $this->Photos->find(); //retrieves all entities (records) from the Photos table and stores in the variable photos.
+        $this->set('photos',$photos); //sends the photos variable to the view (home.php) as photos.
 
     }
 }
