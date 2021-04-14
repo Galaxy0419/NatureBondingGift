@@ -14,8 +14,8 @@
                 * the code below sets a string variable containing the path to the watermarked photo.*/
                 $imagePath = WATERMARK_PHOTO_PATH."/".$photo->file_name; ?>
                 <?php echo $this->Html->image($imagePath)?>
-                <h4><?php echo $photo->name; ?></h4> //displays photo name
-                <p>$<?php echo $photo->price; ?></p> //displays photo price
+                <h4><?php echo $photo->name; ?></h4>  <!-displays photo name-->
+                <p>$<?php echo $photo->price; ?></p>  <!-displays photo price-->
                 <?php } ?>
             </div>
 
