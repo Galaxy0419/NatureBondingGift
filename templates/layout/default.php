@@ -43,8 +43,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         </a>
     </div>
     <div class="top-nav-links">
-        <a target="_self" rel="noopener" href=http://localhost:8765/photos>Photos</a>
-        <a target="_self" rel="noopener" href="http://localhost:8765/categories">Categories</a>
+        <a target="_self" rel="noopener" href="http://development.u21s1057.monash-ie.me/photos">Photos</a>
+        <a target="_self" rel="noopener" href="http://development.u21s1057.monash-ie.me/categories">Categories</a>
     </div>
 </nav>
 <main class="main">
