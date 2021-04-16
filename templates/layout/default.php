@@ -38,8 +38,8 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <body>
 <nav class="top-nav">
     <div class="top-nav-title">
-        <a  target="_self" rel="noopener" href=http://localhost:8765/landing/home>
-        <img src="/img/nbg-logo.png" alt="Natures Bonding Gift" style="width:136px;height:90px;" >
+        <a  target="_self" rel="noopener" href=http://development.u21s1057.monash-ie.me>
+      <?= $this->Html->image('nbg-logo.png', array('width'=>'150px'))?>
         </a>
     </div>
     <div class="top-nav-links">
