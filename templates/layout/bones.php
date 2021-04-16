@@ -80,7 +80,7 @@
             <p class="copyright">Copyright 2021 - Natures Bonding Gift</p>
         </div>
     </div>
-<<<<<<< HEAD
+
     <!---------JS Menu Toggle---------->
     <script>
         var MenuItems = document.getElementById("MenuItems");
@@ -99,9 +99,6 @@
         }
     </script>
     
-
-
-=======
     <script type="text/javascript">
 
         document.addEventListener("contextmenu",function(disable){
@@ -115,6 +112,6 @@
             }
         });
     </script>
->>>>>>> 68c2d586e6e6d1c9e52a07fc9ffcd0db6145beac
+
     </body>
 </html>
