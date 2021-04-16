@@ -38,13 +38,13 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <body>
 <nav class="top-nav">
     <div class="top-nav-title">
-        <a  target="_self" rel="noopener" href=http://development.u21s1057.monash-ie.me>
-      <?= $this->Html->image('nbg-logo.png', array('width'=>'150px'))?>
+        <a href="/">
+            <img src="img/nbg-logo.png" width="150px"/>
         </a>
     </div>
     <div class="top-nav-links">
-        <a target="_self" rel="noopener" href="http://development.u21s1057.monash-ie.me/photos">Photos</a>
-        <a target="_self" rel="noopener" href="http://development.u21s1057.monash-ie.me/categories">Categories</a>
+        <a target="_self" rel="noopener" href="/photos">Photos</a>
+        <a target="_self" rel="noopener" href="/categories">Categories</a>
     </div>
 </nav>
 <main class="main">
