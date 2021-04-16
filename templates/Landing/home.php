@@ -16,7 +16,7 @@
                 <?php echo '<div class="col-4">'; ?> 
                 <?php echo $this->Html->image($imagePath)?>
                 <h4><?php echo $photo->name; ?></h4>  <!-displays photo name-->
-                <p><?php echo $photo->price; ?></p>  <!-displays photo price-->
+                <p>$<?php echo $photo->price; ?></p>  <!-displays photo price-->
                 <?php echo '</div>'; ?>
                 <?php 
                 } ?>
