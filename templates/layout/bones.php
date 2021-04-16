@@ -32,21 +32,21 @@
             </div>
             
         </div>
-    
+
     <div class="row">
         <div class="col-2">
 
         </div>
         <div class="col-2">
-         
+
         </div>
     </div>
-</div> 
 </div>
-    
+</div>
+
 <?= $this->fetch('content') ?>
 <?= $this->Html->css(['style', 'bootstrap']) ?>
-    
+
 
 <div class="footer">
         <div class="container">
@@ -80,6 +80,7 @@
             <p class="copyright">Copyright 2021 - Natures Bonding Gift</p>
         </div>
     </div>
+<<<<<<< HEAD
     <!---------JS Menu Toggle---------->
     <script>
         var MenuItems = document.getElementById("MenuItems");
@@ -100,5 +101,20 @@
     
 
 
+=======
+    <script type="text/javascript">
+
+        document.addEventListener("contextmenu",function(disable){
+            disable.preventDefault()
+        });
+
+        document.addEventListener("mousedown", function(rclick) {
+            if (rclick.which === 3) {
+
+                alert("Copying photos is not enabled.");
+            }
+        });
+    </script>
+>>>>>>> 68c2d586e6e6d1c9e52a07fc9ffcd0db6145beac
     </body>
 </html>
