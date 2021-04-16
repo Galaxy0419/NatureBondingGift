@@ -12,7 +12,7 @@ body{
     align-items: center;
     padding: 20px;
 }
-/*
+
 .navbar::after{
     content: '';
     background: #015a06;
@@ -24,7 +24,7 @@ body{
     left: 50%;
     transform: translateX(-50%);
 }
-*/
+
 nav{
     flex: 1;
     text-align: right;
@@ -195,6 +195,7 @@ li{
         margin-right: 50px;
         margin-top: 10px;
         margin-bottom: 10px;
+        transition: max-height 0.5s;
     }
     nav ul li a{
         color: #fff;
