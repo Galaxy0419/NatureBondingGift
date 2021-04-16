@@ -15,21 +15,22 @@
             <?= $this->Html->image('nbg-logo.png', array('width'=>'150px'))?>
         </div>
         <nav>
+            
             <ul id="MenuItems">
             <li><a href="">Home</a></li>
             <li><a href="">About</a></li>
             <li><a href="">Contact</a></li>
             </ul>
+            
         </nav>
             <div class="cart-icon">
             <?= $this->Html->image('cart.png', array('width'=>'25px', 'height'=>'25px'))?>
             </div>
-            <!-----------
+            
             <div class="menu-icon" onclick="()">
-            <img src="images/menu.png" class="menu-icon" onclick="menutoggle()">
-            <?= $this->Html->image('menu.png')?>
+            <img src="img/menu.png" class="menu-icon" onclick="menutoggle()">
             </div>
-            ---------->
+            
         </div>
     
     <div class="row">
@@ -79,5 +80,25 @@
             <p class="copyright">Copyright 2021 - Natures Bonding Gift</p>
         </div>
     </div>
+    <!---------JS Menu Toggle---------->
+    <script>
+        var MenuItems = document.getElementById("MenuItems");
+        
+        MenuItems.style.maxHeight = "0px";
+        
+        function menutoggle(){
+            if(MenuItems.style.maxHeight == "0px")
+                {
+                    MenuItems.style.maxHeight = "200px"
+                }
+            else
+                {
+                    MenuItems.style.maxHeight = "0px";
+                }
+        }
+    </script>
+    
+
+
     </body>
 </html>
