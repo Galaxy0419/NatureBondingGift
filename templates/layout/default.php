@@ -38,9 +38,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <body>
 <nav class="top-nav">
     <div class="top-nav-title">
-        <a href="/">
-            <img src="img/nbg-logo.png" width="150px"/>
-        </a>
+        <?= $this->Html->image('nbg-logo.png', ['width'=>'150px', 'alt' => 'logo', 'url' => '/']) ?>
     </div>
     <div class="top-nav-links">
         <a target="_self" rel="noopener" href="/photos">Photos</a>
