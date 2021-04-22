@@ -16,4 +16,14 @@ class LandingController extends AppController{
         $this->set('photos',$photos); //sends the photos variable to the view (home.php) as photos.
 
     }
+    
+    public function about()
+    {    
+    $this->viewBuilder()->setLayout('bones'); //uses bones.php in layout folder as the base layout.
+    }
+    
+    public function contact()
+    {    
+    $this->viewBuilder()->setLayout('bones'); //uses bones.php in layout folder as the base layout.
+    }
 }

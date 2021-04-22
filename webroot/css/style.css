@@ -98,6 +98,7 @@ p{
     line-height: 60px;
     color: #222;
 }
+
 .title::after{
     content: '';
     background: #015a06;
@@ -176,6 +177,10 @@ li{
     margin-left: 20px;
     display: none;
     margin-top: 2px;
+}
+
+.contact-msg{
+    text-align: left;
 }
 
 /*--------------Menu Media Query-----------*/
