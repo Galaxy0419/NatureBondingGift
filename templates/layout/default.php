@@ -38,7 +38,7 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <body>
 <nav class="top-nav">
     <div class="top-nav-title">
-        <?= $this->Html->image('nbg-logo.png', ['width'=>'150px', 'alt' => 'logo', 'url' => '/']) ?>
+        <a href="/"><span>Admin</span>Panel</a>
     </div>
     <div class="top-nav-links">
         <a target="_self" rel="noopener" href="/">Home</a>
