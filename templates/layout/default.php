@@ -41,8 +41,10 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
         <?= $this->Html->image('nbg-logo.png', ['width'=>'150px', 'alt' => 'logo', 'url' => '/']) ?>
     </div>
     <div class="top-nav-links">
+        <a target="_self" rel="noopener" href="/">Home</a>
         <a target="_self" rel="noopener" href="/photos">Photos</a>
         <a target="_self" rel="noopener" href="/categories">Categories</a>
+        <a target="_self" rel="noopener" href="/enquiries">Enquiries</a>
     </div>
 </nav>
 <main class="main">
