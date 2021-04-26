@@ -68,7 +68,7 @@ class PhotosTable extends Table
 
         $validator
             ->scalar('description')
-            ->maxLength('description', 256)
+            ->maxLength('description', 255)
             ->requirePresence('description', 'create')
             ->notEmptyString('description');
 
@@ -91,7 +91,7 @@ class PhotosTable extends Table
 
         $validator
             ->scalar('file_name')
-            ->maxLength('file_name', 256)
+            ->maxLength('file_name', 255)
             ->requirePresence('file_name', 'create')
             ->notEmptyFile('file_name')
             ->add('file_name', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);

@@ -38,7 +38,7 @@ class CategoriesController extends AppController
 
                 return $this->redirect(['controller' => 'photos', 'action' => 'add']);
             }
-            $this->Flash->error(__('The category could not be saved. Please, try again.'));
+            $this->Flash->error(__('The category already exists!'));
         }
         $this->set(compact('category'));
     }
@@ -62,7 +62,7 @@ class CategoriesController extends AppController
 
                 return $this->redirect(['action' => 'index']);
             }
-            $this->Flash->error(__('The category could not be saved. Please, try again.'));
+            $this->Flash->error(__('The category already exists!'));
         }
         $this->set(compact('category'));
     }
