@@ -12,18 +12,17 @@ class LandingController extends AppController{
     {
         $this->viewBuilder()->setLayout('bones'); //uses bones.php in layout folder as the base layout.
         $this->loadModel('Photos'); //loading Photos model to retrieve photo data from the database.
-        $photos= $this->Photos->find(); //retrieves all entities (records) from the Photos table and stores in the variable photos.
+        $photos= $this->Photos->find('all',['contain'=>['Categories']])->toArray(); //retrieves all entities (records) from the Photos table and stores in the variable photos.
         $this->set('photos',$photos); //sends the photos variable to the view (home.php) as photos.
-
     }
-    
+
     public function about()
-    {    
+    {
     $this->viewBuilder()->setLayout('bones'); //uses bones.php in layout folder as the base layout.
     }
-    
+
     public function contact()
-    {    
+    {
     $this->viewBuilder()->setLayout('bones'); //uses bones.php in layout folder as the base layout.
     }
 }
