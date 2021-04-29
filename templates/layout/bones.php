@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="css/lightbox.css">
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    
+
 </head>
 <body>
     <div class="header">
@@ -20,34 +20,34 @@
            </a>
         </div>
         <nav>
-            
+
             <ul id="MenuItems">
             <li><a href=<?= $this->Url->build(['controller'=>'Landing','action'=>'home']);?>>Home</a></li>
             <li><a href=<?= $this->Url->build(['controller'=>'Landing','action'=>'about']);?> >About</a></li>
-            <li><a href="<?= $this->Url->build(['controller'=>'Landing','action'=>'contact']);?>">Contact</a></li>
+            <li><a href="<?= $this->Url->build(['controller'=>'Enquiries','action'=>'add']);?>">Contact</a></li>
             </ul>
-            
+
         </nav>
             <div class="cart-icon">
             <a href=<?= $this->Url->build(['controller'=>'Cart','action'=>'cart']);?>>
             <?= $this->Html->image('cart.png', array('width'=>'25px', 'height'=>'25px'))?>
             </a>
             </div>
-            
+
             <div class="menu-icon" onclick="()">
             <img src="img/menu.png" class="menu-icon" onclick="menutoggle()">
             </div>
-            
+
         </div>
 
     <div class="row">
         <div class="col-2">
-            
+
         </div>
         <div class="col-2">
 
         </div>
-        
+
     </div>
 </div>
 </div>
@@ -92,9 +92,9 @@
     <!---------JS Menu Toggle---------->
     <script>
         var MenuItems = document.getElementById("MenuItems");
-        
+
         MenuItems.style.maxHeight = "0px";
-        
+
         function menutoggle(){
             if(MenuItems.style.maxHeight == "0px")
                 {
@@ -106,8 +106,7 @@
                 }
         }
     </script>
-    
-    
+
     <script type="text/javascript">
 
         document.addEventListener("contextmenu",function(disable){
@@ -121,7 +120,7 @@
             }
         });
     </script>
-    
+
 <script src="js/lightbox.min.js"></script>
 <script>
     lightbox.option({
