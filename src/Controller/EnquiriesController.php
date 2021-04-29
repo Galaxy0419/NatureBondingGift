@@ -60,30 +60,6 @@ class EnquiriesController extends AppController
     }
 
     /**
-     * Edit method
-     *
-     * @param string|null $id Enquiry id.
-     * @return \Cake\Http\Response|null|void Redirects on successful edit, renders view otherwise.
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
-     */
-    public function edit($id = null)
-    {
-        $enquiry = $this->Enquiries->get($id, [
-            'contain' => [],
-        ]);
-        if ($this->request->is(['patch', 'post', 'put'])) {
-            $enquiry = $this->Enquiries->patchEntity($enquiry, $this->request->getData());
-            if ($this->Enquiries->save($enquiry)) {
-                $this->Flash->success(__('The enquiry has been saved.'));
-
-                return $this->redirect(['action' => 'index']);
-            }
-            $this->Flash->error(__('The enquiry could not be saved. Please, try again.'));
-        }
-        $this->set(compact('enquiry'));
-    }
-
-    /**
      * Delete method
      *
      * @param string|null $id Enquiry id.

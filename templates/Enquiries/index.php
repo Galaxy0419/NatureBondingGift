@@ -5,7 +5,6 @@
  */
 ?>
 <div class="enquiries index content">
-    <?= $this->Html->link(__('New Enquiry'), ['action' => 'add'], ['class' => 'button float-right']) ?>
     <h3><?= __('Enquiries') ?></h3>
     <div class="table-responsive">
         <table>
@@ -33,7 +32,6 @@
                     <td><?= h($enquiry->create_date) ?></td>
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $enquiry->id]) ?>
-                        <?= $this->Html->link(__('Edit'), ['action' => 'edit', $enquiry->id]) ?>
                         <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $enquiry->id], ['confirm' => __('Are you sure you want to delete # {0}?', $enquiry->id)]) ?>
                     </td>
                 </tr>
