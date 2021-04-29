@@ -28,7 +28,7 @@
                     <td><?= h($enquiry->name) ?></td>
                     <td><?= h($enquiry->email) ?></td>
                     <td><?= h($enquiry->subject) ?></td>
-                    <td><?= h($enquiry->description) ?></td>
+                    <td><?= $this->Text->truncate(h($enquiry->description), 254) ?></td>
                     <td><?= h($enquiry->status) ?></td>
                     <td><?= h($enquiry->create_date) ?></td>
                     <td class="actions">
