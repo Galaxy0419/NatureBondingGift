@@ -1,14 +1,16 @@
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Natures Bonding Gift</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/lightbox.css">
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+    <?= $this->Html->css(['https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap',
+        'lightbox', 'normalize.min', 'milligram.min', 'cake', 'bootstrap', 'style']) ?>
+    <?= $this->Html->javascript(['https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js']) ?>
+
+    <?= $this->fetch('meta') ?>
+    <?= $this->fetch('css') ?>
+    <?= $this->fetch('script') ?>
 </head>
 <body>
     <div class="header">
@@ -52,9 +54,10 @@
 </div>
 </div>
 
-<?= $this->fetch('content') ?>
-<?= $this->Html->css(['style', 'bootstrap']) ?>
-
+    <div class="container">
+        <?= $this->Flash->render() ?>
+        <?= $this->fetch('content') ?>
+    </div>
 
 <div class="footer">
         <div class="container">

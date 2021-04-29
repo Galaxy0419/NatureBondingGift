@@ -87,6 +87,7 @@ class EnquiriesController extends AppController
      */
     public function add()
     {
+        $this->viewBuilder()->setLayout('bones');
         $enquiry = $this->Enquiries->newEmptyEntity();
         if ($this->request->is('post')) {
             $enquiry = $this->Enquiries->patchEntity($enquiry, $this->request->getData());

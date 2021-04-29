@@ -4,19 +4,24 @@
  * @var \App\Model\Entity\Enquiry $enquiry
  */
 ?>
-<div class="column-responsive column-80">
+<div class="small-container">
     <div class="enquiries form content">
         <?= $this->Form->create($enquiry) ?>
         <fieldset>
             <legend><?= __('Add Enquiry') ?></legend>
-            <?php
-                echo $this->Form->control('name');
-                echo $this->Form->control('email');
-                echo $this->Form->control('subject');
-                echo $this->Form->control('description', ['type' => 'textarea', 'style' => 'height: 256px']);
-            ?>
+            <?= $this->Form->control('name') ?>
+            <br>
+            <?= $this->Form->control('email') ?>
+            <br>
+            <?= $this->Form->control('subject') ?>
+            <br>
+            <?= $this->Form->control('description', ['type' => 'textarea', 'style' => 'height: 256px']) ?>
+            <br>
         </fieldset>
-        <?= $this->Form->button(__('Submit')) ?>
+        <?= $this->Form->submit(__('Submit')) ?>
         <?= $this->Form->end() ?>
     </div>
 </div>
+
+<br>
+<br>
