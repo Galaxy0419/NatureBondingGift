@@ -12,7 +12,9 @@
     <div class="container">
         <div class="navbar">
          <div class="logo">
+        <a href=<?= $this->Url->build(['controller'=>'Landing','action'=>'home']);?>>
             <?= $this->Html->image('nbg-logo.png', array('width'=>'150px'))?>
+           </a>
         </div>
         <nav>
             
@@ -24,7 +26,9 @@
             
         </nav>
             <div class="cart-icon">
+            <a href=<?= $this->Url->build(['controller'=>'Cart','action'=>'cart']);?>>
             <?= $this->Html->image('cart.png', array('width'=>'25px', 'height'=>'25px'))?>
+            </a>
             </div>
             
             <div class="menu-icon" onclick="()">
@@ -60,7 +64,7 @@
                 <div class="footer-col-2">
                     <h3>Useful Links</h3>
                     <ul>
-                        <li>About</li>
+                        <li><a href=<?= $this->Url->build(['controller'=>'Landing','action'=>'about']);?>>About </a></li>
                         <li>Contact Us</li>
                         <li>Delivery</li>
                         <li>FAQ</li>
