@@ -93,7 +93,7 @@ class EnquiriesController extends AppController
             if ($this->Enquiries->save($enquiry)) {
                 $this->Flash->success(__('The enquiry has been saved.'));
 
-                return $this->redirect(['action' => 'index']);
+                return $this->redirect(['controller' => 'Landing', 'action' => 'home']);
             }
             $this->Flash->error(__('The enquiry could not be saved. Please, try again.'));
         }
