@@ -32,6 +32,7 @@
                     <td><?= h($enquiry->create_date) ?></td>
                     <td class="actions">
                         <?= $this->Html->link(__('View'), ['action' => 'view', $enquiry->id]) ?>
+                        <?= $this->Html->link(__('Reply'), ['action' => 'reply', $enquiry->id]) ?>
                         <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $enquiry->id], ['confirm' => __('Are you sure you want to delete # {0}?', $enquiry->id)]) ?>
                     </td>
                 </tr>
