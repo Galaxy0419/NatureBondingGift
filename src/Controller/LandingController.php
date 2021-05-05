@@ -28,4 +28,5 @@ class LandingController extends AppController{
     {
     $this->viewBuilder()->setLayout('bones'); //uses bones.php in layout folder as the base layout.
     }
+
 }

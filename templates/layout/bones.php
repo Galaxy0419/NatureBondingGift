@@ -6,6 +6,9 @@
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/lightbox.css">
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
 </head>
 <body>
     <div class="header">
@@ -39,11 +42,12 @@
 
     <div class="row">
         <div class="col-2">
-
+            
         </div>
         <div class="col-2">
 
         </div>
+        
     </div>
 </div>
 </div>
@@ -65,7 +69,7 @@
                     <h3>Useful Links</h3>
                     <ul>
                         <li><a href=<?= $this->Url->build(['controller'=>'Landing','action'=>'about']);?>>About </a></li>
-                        <li>Contact Us</li>
+                        <li><a href=<?= $this->Url->build(['controller'=>'Landing','action'=>'contact']);?>>Contact Us </a></li>
                         <li>Delivery</li>
                         <li>FAQ</li>
                         <li>Privacy Policy</li>
@@ -73,11 +77,11 @@
                 </div>
                 <div class="footer-col-3">
                     <h3>Follow Us</h3>
-                    <ul>
-                        <li>Facebook</li>
-                        <li>Instagram</li>
-                        <li>Twitter</li>
-                    </ul>
+                    <div class="icons">
+                        <?= $this->Html->image('facebook.png', array('width'=>'35px', 'height'=>'35px'))?>
+                        <?= $this->Html->image('instagram.png', array('width'=>'35px', 'height'=>'35px'))?>
+                        <?= $this->Html->image('twitter.png', array('width'=>'35px', 'height'=>'35px'))?>
+                    </div>
                 </div>
             </div>
             <hr>
@@ -103,6 +107,7 @@
         }
     </script>
     
+    
     <script type="text/javascript">
 
         document.addEventListener("contextmenu",function(disable){
@@ -116,6 +121,12 @@
             }
         });
     </script>
-
+    
+<script src="js/lightbox.min.js"></script>
+<script>
+    lightbox.option({
+      'maxHeight': window.innerHeight * 0.8
+    })
+</script>
     </body>
 </html>
