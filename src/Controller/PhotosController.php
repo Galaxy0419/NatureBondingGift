@@ -44,7 +44,7 @@ class PhotosController extends AppController
             $this->Flash->success(__('The photo has been saved.'));
             return $this->redirect(['action' => 'index']);
         } else {
-            $this->Flash->error(__('The file name already exists. Please rename the file first.'));
+            $this->Flash->error(__('File could not be saved. Please review the data you have entered and try again.'));
         }
     }
 
