@@ -16,6 +16,7 @@ use Cake\ORM\Entity;
  * @property int $res_width
  * @property int $res_height
  * @property float $price
+ * @property float|null $discount_price
  * @property \Cake\I18n\FrozenTime $create_date
  * @property string $file_name
  *
@@ -39,6 +40,7 @@ class Photo extends Entity
         'res_width' => true,
         'res_height' => true,
         'price' => true,
+        'discount_price'=> true,
         'create_date' => true,
         'file_name' => true,
         'category' => true,

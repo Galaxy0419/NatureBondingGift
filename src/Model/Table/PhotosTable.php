@@ -83,7 +83,13 @@ class PhotosTable extends Table
         $validator
             ->numeric('price')
             ->requirePresence('price', 'create')
-            ->notEmptyString('price');
+            ->notEmptyString('price')
+            ->greaterThanOrEqual('price', 0, "Please enter a positive value (or zero)");
+
+        $validator
+            ->numeric('discount_price')
+            ->allowEmptyString('discount_price')
+            ->greaterThanOrEqual('discount_price', 0, "Please enter a positive value (or zero)");
 
         $validator
             ->dateTime('create_date')
