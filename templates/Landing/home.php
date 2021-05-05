@@ -5,7 +5,10 @@
  * @var \App\Model\Entity\Photo[]|\Cake\Collection\CollectionInterface $photos
  */
 ?>
-
+<html>
+<head>
+</head>
+    <body>
 <div class="small-container">
         <h2 class="title">All Photos</h2>
         <div class="row">
@@ -15,7 +18,12 @@
 
                 $imagePath = WATERMARK_PHOTO_PATH."/".$photo->file_name; ?>
                 <?php echo '<div class="col-4">'; ?>
-                <?php echo $this->Html->image($imagePath)?>
+            
+                
+            <a class="test" data-lightbox="gallery" data-title='<?= $photo->description?>' href='img/<?= ($imagePath)?>'> 
+            <?= $this->Html->image($imagePath)?>
+            </a>
+                
                 <h4><?php echo $photo->name; ?></h4>  <!-displays photo name-->
                 <p>$<?php echo $photo->price; ?></p><!-displays photo price-->
                 <p><?php echo ucfirst($photo->category->name); ?></p>  <!-displays photo category-->
@@ -23,5 +31,6 @@
                 <?php
                 } ?>
             </div>
-
         </div>
+    </body>
+</html>

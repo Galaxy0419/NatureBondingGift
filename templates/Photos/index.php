@@ -32,8 +32,8 @@
                     <td><?= h($photo->res_width . 'x' . $photo->res_height)?></td>
                     <td><?= $this->Number->format($photo->price) ?></td>
                     <td><?= h($photo->create_date) ?></td>
-                    <td><?= $this->Html->image(ORIGINAL_PHOTO_PATH . DS . $photo->file_name,
-                            ['alt' => $photo->file_name, 'url' => 'img' . DS . ORIGINAL_PHOTO_PATH . DS . $photo->file_name]) ?></td>
+                    <td><?= $this->Html->image(ORIGINAL_PHOTO_PATH . '/' . $photo->file_name,
+                            ['alt' => $photo->file_name]) ?></td>
                     <td class="actions">
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $photo->id]) ?>
                         <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $photo->id],

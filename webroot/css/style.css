@@ -123,6 +123,11 @@ h4{
     transform: translateY(-5px);
 }
 
+.product-image{
+    flex-basis: 50%;
+    min-width: 300px;
+    padding-left: 40px;
+}
 /*-----------Footer-----------*/
 
 .footer{
@@ -157,9 +162,11 @@ h4{
     flex-basis: 30%;
     text-align: center;
 }
+
 ul{
     list-style-type: none;
 }
+
 .footer hr{
     background: #fff;
     height; 1px;
@@ -222,8 +229,6 @@ li{
         flex-basis: 100%;
     }
 }
-
-
 
 
 
