@@ -4,6 +4,10 @@
  * @var \App\Model\Entity\Photo $photo
  */
 ?>
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
 <div class="row">
     <aside class="column">
         <div class="side-nav">
@@ -22,14 +26,16 @@
             <fieldset>
                 <legend><?= __('Edit Photo') ?></legend>
                 <?php
-                    echo $this->Html->link('Add', 'categories/add', ['class' => 'button', 'style' => 'float:right']);
-                    echo $this->Form->control('category_id', ['options' => $categories]);
-                    echo $this->Form->control('name');
-                    echo $this->Form->control('description');
-                    echo $this->Form->control('price');
-                    echo $this->Form->control('file', [
-                        'label' => 'Choose a new Photo (Optional)', 'type' => 'file', 'required' => false,
-                        'accept' => 'image/jpeg,image/png', 'error' => false]);
+                echo $this->Html->link('Add', 'categories/add', ['class' => 'button', 'style' => 'float:right']);
+                echo $this->Form->control('category_id', ['options' => $categories]);
+                echo $this->Form->control('name');
+                echo $this->Form->control('description');
+                echo $this->Form->control('price', ['id' => 'price']);
+                echo $this->Form->control('discount_price', ['id' => 'discount_price']);;
+                echo $this->Form->control('Discount Percentage', ['id' => 'discount_percentage']);
+                echo $this->Form->control('file', [
+                    'label' => 'Choose a new Photo (Optional)', 'type' => 'file', 'required' => false,
+                    'accept' => 'image/jpeg,image/png', 'error' => false]);
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
@@ -37,3 +43,23 @@
         </div>
     </div>
 </div>
+
+<script>
+    $('#price').change(function () {
+        $('#discount_price').val('');
+        $('#discount_percentage').val('');
+    });
+    //sets discount price and percentage to null as any changes to the original price should override any previously set discount prices.
+
+    $('#discount_price').change(function () {
+        var percentage = Math.round((1 - (parseFloat($('#discount_price').val()) / parseFloat($('#price').val()))) * 100);
+        $('#discount_percentage').val(percentage + '%');
+    });
+
+    $('#discount_percentage').change(function () {
+        let discountedPrice = parseFloat($('#price').val()) * (1 - parseFloat($('#discount_percentage').val()) / 100);
+        $('#discount_price').val(discountedPrice.toFixed(2));
+    });
+
+
+</script>
