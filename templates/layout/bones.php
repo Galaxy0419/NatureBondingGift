@@ -1,14 +1,16 @@
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Natures Bonding Gift</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="css/lightbox.css">
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    
+
+    <?= $this->Html->css(['https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap',
+        'lightbox', 'normalize.min', 'milligram.min', 'cake', 'bootstrap', 'style']) ?>
+    <?= $this->Html->javascript(['https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js']) ?>
+
+    <?= $this->fetch('meta') ?>
+    <?= $this->fetch('css') ?>
+    <?= $this->fetch('script') ?>
 </head>
 <body>
     <div class="header">
@@ -20,41 +22,42 @@
            </a>
         </div>
         <nav>
-            
+
             <ul id="MenuItems">
             <li><a href=<?= $this->Url->build(['controller'=>'Landing','action'=>'home']);?>>Home</a></li>
             <li><a href=<?= $this->Url->build(['controller'=>'Landing','action'=>'about']);?> >About</a></li>
-            <li><a href="<?= $this->Url->build(['controller'=>'Landing','action'=>'contact']);?>">Contact</a></li>
+            <li><a href="<?= $this->Url->build(['controller'=>'Enquiries','action'=>'add']);?>">Contact</a></li>
             </ul>
-            
+
         </nav>
             <div class="cart-icon">
             <a href=<?= $this->Url->build(['controller'=>'Cart','action'=>'cart']);?>>
             <?= $this->Html->image('cart.png', array('width'=>'25px', 'height'=>'25px'))?>
             </a>
             </div>
-            
+
             <div class="menu-icon" onclick="()">
             <img src="img/menu.png" class="menu-icon" onclick="menutoggle()">
             </div>
-            
+
         </div>
 
     <div class="row">
         <div class="col-2">
-            
+
         </div>
         <div class="col-2">
 
         </div>
-        
+
     </div>
 </div>
 </div>
 
-<?= $this->fetch('content') ?>
-<?= $this->Html->css(['style', 'bootstrap']) ?>
-
+    <div class="container">
+        <?= $this->Flash->render() ?>
+        <?= $this->fetch('content') ?>
+    </div>
 
 <div class="footer">
         <div class="container">
@@ -92,9 +95,9 @@
     <!---------JS Menu Toggle---------->
     <script>
         var MenuItems = document.getElementById("MenuItems");
-        
+
         MenuItems.style.maxHeight = "0px";
-        
+
         function menutoggle(){
             if(MenuItems.style.maxHeight == "0px")
                 {
@@ -106,8 +109,7 @@
                 }
         }
     </script>
-    
-    
+
     <script type="text/javascript">
 
         document.addEventListener("contextmenu",function(disable){
@@ -121,7 +123,7 @@
             }
         });
     </script>
-    
+
 <script src="js/lightbox.min.js"></script>
 <script>
     lightbox.option({

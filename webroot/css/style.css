@@ -20,7 +20,7 @@ body{
     height: 7px;
     border-radius: 5px;
     position: absolute;
-    top: 110;
+    top: 110px;
     left: 50%;
     transform: translateX(-50%);
 }
@@ -52,7 +52,7 @@ p{
     max-width: 1300px;
     margin: auto;
     padding-left: 25px;
-    padding-right: 25px;     
+    padding-right: 25px;
 }
 .row{
     display: flex;
@@ -65,9 +65,9 @@ p{
     min-width: 300px;
     padding-left: 40px;
 }
- 
+
 .col-2 h1{
-    margin: 10px;  
+    margin: 10px;
     font-size: 25px;
     font-weight: 500;
     transform: translateY(-50px);
@@ -113,7 +113,7 @@ p{
 h4{
     color: #555;
     font-weight: bold;
-    
+
 }
 .col-4 p{
     font-size: 14px;
@@ -128,6 +128,13 @@ h4{
     min-width: 300px;
     padding-left: 40px;
 }
+
+.button, button, input[type='button'], input[type='reset'], input[type='submit'] {
+    background-color: #015a06;
+    border: #015a06;
+    color: #ffffff;
+}
+
 /*-----------Footer-----------*/
 
 .footer{
@@ -169,11 +176,11 @@ ul{
 
 .footer hr{
     background: #fff;
-    height; 1px;
+    height: 1px;
     margin: 20px 0;
 }
 .copyright {
-    text-align: center; 
+    text-align: center;
 }
 li{
     padding: 1px;
@@ -193,7 +200,7 @@ li{
 /*--------------Menu Media Query-----------*/
 
 @media only screen and (max-width: 800px){
-    
+
     nav ul{
         position: absolute;
         top: 90px;
@@ -223,7 +230,7 @@ li{
 @media only screen and (max-width: 600px){
     .row{
         text-align: center;
-        
+
     }
     .col-2, .col-4{
         flex-basis: 100%;

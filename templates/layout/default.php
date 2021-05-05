@@ -13,18 +13,14 @@
  * @license       https://opensource.org/licenses/mit-license.php MIT License
  * @var \App\View\AppView $this
  */
-
-$cakeDescription = 'CakePHP: the rapid development php framework';
 ?>
+
 <!DOCTYPE html>
 <html>
 <head>
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>
-        <?= $cakeDescription ?>:
-        <?= $this->fetch('title') ?>
-    </title>
+    <title>Admin Panel</title>
     <?= $this->Html->meta('icon') ?>
 
     <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
@@ -38,11 +34,13 @@ $cakeDescription = 'CakePHP: the rapid development php framework';
 <body>
 <nav class="top-nav">
     <div class="top-nav-title">
-        <?= $this->Html->image('nbg-logo.png', ['width'=>'150px', 'alt' => 'logo', 'url' => '/']) ?>
+        <a href="/"><span>Admin</span>Panel</a>
     </div>
     <div class="top-nav-links">
+        <a target="_self" rel="noopener" href="/">Home</a>
         <a target="_self" rel="noopener" href="/photos">Photos</a>
         <a target="_self" rel="noopener" href="/categories">Categories</a>
+        <a target="_self" rel="noopener" href="/enquiries">Enquiries</a>
     </div>
 </nav>
 <main class="main">
