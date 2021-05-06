@@ -42,10 +42,6 @@
                     <?= $this->Html->image('cart.png', array('width' => '25px', 'height' => '25px')) ?>
                 </a>
             </div>
-
-            <div class="menu-icon" onclick="()">
-                <img src="img/menu.png" class="menu-icon" onclick="menutoggle()">
-            </div>
         </div>
 
         <div class="row">
