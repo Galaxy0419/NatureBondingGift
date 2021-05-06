@@ -110,20 +110,6 @@
         }
     </script>
 
-    <script type="text/javascript">
-
-        document.addEventListener("contextmenu",function(disable){
-            disable.preventDefault()
-        });
-
-        document.addEventListener("mousedown", function(rclick) {
-            if (rclick.which === 3) {
-
-                alert("Copying photos is not enabled.");
-            }
-        });
-    </script>
-
 <script src="js/lightbox.min.js"></script>
 <script>
     lightbox.option({
