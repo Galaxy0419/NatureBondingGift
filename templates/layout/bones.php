@@ -4,9 +4,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Natures Bonding Gift</title>
 
-    <?= $this->Html->css(['https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap',
-        'lightbox', 'normalize.min', 'milligram.min', 'cake', 'bootstrap', 'style']) ?>
-    <?= $this->Html->script(['https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js', 'lightbox.min']) ?>
+    <?= $this->Html->css(['normalize.min', 'milligram.min', 'cake', 'bootstrap', 'lightbox', 'rubik-font.css', 'style']) ?>
+    <?= $this->Html->script(['jquery.min', 'lightbox.min']) ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
