@@ -6,8 +6,8 @@
 
     <?= $this->Html->css(['https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap',
         'lightbox', 'normalize.min', 'milligram.min', 'cake', 'bootstrap', 'style']) ?>
-    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <link rel="stylesheet" type="text/css" src="css/lightbox">
+    <?= $this->Html->script(['https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js', 'lightbox.min']) ?>
+
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
@@ -117,7 +117,6 @@
     }
 </script>
 
-<script src="js/lightbox.min.js"></script>
 <script>
     lightbox.option({
         'maxHeight': window.innerHeight * 0.8
