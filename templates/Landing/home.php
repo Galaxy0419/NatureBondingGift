@@ -17,7 +17,9 @@
             * the code below sets a string variable containing the path to the watermarked photo.*/
             $imagePath = WATERMARK_PHOTO_PATH . "/" . $photo->file_name; ?>
             <?php echo '<div class="col-4">'; ?>
-            <?php echo $this->Html->image($imagePath) ?>
+            <a class="test" data-lightbox="gallery" data-title='<?= $photo->description?>' href='img/<?= ($imagePath)?>'> 
+            <?= $this->Html->image($imagePath)?>
+            </a>
             <h4><?php echo $photo->name; ?></h4>  <!-displays photo name-->
             <?php if (!is_null($photo->discount_price) and $photo->price > $photo->discount_price) {
                 $discount_percent = round((1 - ($photo->discount_price / $photo->price)) * 100);
@@ -35,21 +37,7 @@
         } ?>
     </div>
 
-                $imagePath = WATERMARK_PHOTO_PATH."/".$photo->file_name; ?>
-                <?php echo '<div class="col-4">'; ?>
-            
-                
-            <a class="test" data-lightbox="gallery" data-title='<?= $photo->description?>' href='img/<?= ($imagePath)?>'> 
-            <?= $this->Html->image($imagePath)?>
-            </a>
-                
-                <h4><?php echo $photo->name; ?></h4>  <!-displays photo name-->
-                <p>$<?php echo $photo->price; ?></p><!-displays photo price-->
-                <p><?php echo ucfirst($photo->category->name); ?></p>  <!-displays photo category-->
-                <?php echo '</div>'; ?>
-                <?php
-                } ?>
             </div>
-        </div>
+        
     </body>
 </html>

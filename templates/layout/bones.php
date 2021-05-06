@@ -6,8 +6,8 @@
 
     <?= $this->Html->css(['https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;600;700&display=swap',
         'lightbox', 'normalize.min', 'milligram.min', 'cake', 'bootstrap', 'style']) ?>
-    <?= $this->Html->javascript(['https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js']) ?>
-
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" type="text/css" src="css/lightbox">
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
