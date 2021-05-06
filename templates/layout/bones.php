@@ -4,6 +4,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Natures Bonding Gift</title>
 
+    <?= $this->Html->meta('icon', 'img/nbg-logo.png') ?>
     <?= $this->Html->css(['normalize.min', 'milligram.min', 'cake', 'bootstrap', 'lightbox', 'rubik-font.css', 'style']) ?>
     <?= $this->Html->script(['jquery.min', 'lightbox.min']) ?>
 
