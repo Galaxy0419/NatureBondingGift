@@ -21,36 +21,37 @@
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Admin Panel</title>
-    <?= $this->Html->meta('icon') ?>
 
-    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
-
+    <?= $this->Html->meta('icon', 'img/nbg-logo.png') ?>
     <?= $this->Html->css(['normalize.min', 'milligram.min', 'cake']) ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
     <?= $this->fetch('script') ?>
 </head>
+
 <body>
 <nav class="top-nav">
     <div class="top-nav-title">
-        <a href="/"><span>Admin</span>Panel</a>
+        <?= $this->Html->link('<span>Admin</span>Panel', ['controller' => 'Landing', 'action' => 'home'], ['escape' => false]) ?>
     </div>
+
     <div class="top-nav-links">
-        <a target="_self" rel="noopener" href="/">Home</a>
-        <a target="_self" rel="noopener" href="/photos">Photos</a>
-        <a target="_self" rel="noopener" href="/categories">Categories</a>
-        <a target="_self" rel="noopener" href="/enquiries">Enquiries</a>
+        <?= $this->Html->link('Home', ['controller' => 'Landing', 'action' => 'home']) ?>
+        <?= $this->Html->link('Categories', ['controller' => 'Categories']) ?>
+        <?= $this->Html->link('Photos', ['controller' => 'Photos']) ?>
+        <?= $this->Html->link('Enquiries', ['controller' => 'Enquiries']) ?>
     </div>
 </nav>
+
 <main class="main">
     <div class="container">
         <?= $this->Flash->render() ?>
         <?= $this->fetch('content') ?>
     </div>
 </main>
+
 <footer>
 </footer>
-
 </body>
 </html>

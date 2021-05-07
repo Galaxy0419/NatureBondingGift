@@ -24,6 +24,7 @@ class PhotosFixture extends TestFixture
         'res_width' => ['type' => 'smallinteger', 'length' => null, 'unsigned' => true, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
         'res_height' => ['type' => 'smallinteger', 'length' => null, 'unsigned' => true, 'null' => false, 'default' => null, 'comment' => '', 'precision' => null],
         'price' => ['type' => 'float', 'length' => null, 'precision' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => ''],
+        'discount_price' => ['type' => 'float', 'length' => null, 'precision' => null, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => ''],
         'create_date' => ['type' => 'timestamp', 'length' => null, 'precision' => null, 'null' => false, 'default' => 'CURRENT_TIMESTAMP', 'comment' => ''],
         'file_name' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null],
         '_indexes' => [
@@ -56,6 +57,7 @@ class PhotosFixture extends TestFixture
                 'res_width' => 1,
                 'res_height' => 1,
                 'price' => 1,
+                'discount_price' => 1,
                 'create_date' => 1619006929,
                 'file_name' => 'Lorem ipsum dolor sit amet',
             ],
