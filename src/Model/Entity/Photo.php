@@ -40,7 +40,7 @@ class Photo extends Entity
         'res_width' => true,
         'res_height' => true,
         'price' => true,
-        'discount_price'=> true,
+        'discount_price' => true,
         'create_date' => true,
         'file_name' => true,
         'category' => true,
