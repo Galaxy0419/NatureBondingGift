@@ -39,7 +39,7 @@
                 ?>
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
-            <?= $this->Form->end() ?>
+            <?= $this->Form->end()?>
         </div>
     </div>
 </div>
@@ -52,13 +52,23 @@
     //sets discount price and percentage to null as any changes to the original price should override any previously set discount prices.
 
     $('#discount_price').change(function () {
+        if ($('#discount_price').val()>$('#price').val()){
+            $('#discount_price').val('');
+            alert("Discount price entered is greater than the original price. If you wish to increase the price, please modify the original price instead.")
+        }
         var percentage = Math.round((1 - (parseFloat($('#discount_price').val()) / parseFloat($('#price').val()))) * 100);
         $('#discount_percentage').val(percentage + '%');
     });
 
     $('#discount_percentage').change(function () {
-        let discountedPrice = parseFloat($('#price').val()) * (1 - parseFloat($('#discount_percentage').val()) / 100);
-        $('#discount_price').val(discountedPrice.toFixed(2));
+        if (parseFloat($('#discount_percentage').val()) < 0){
+            $('#discount_percentage').val('');
+            alert("Please enter a value between 0 and 100%. E.g.: To apply a 20% discount, enter 20.");
+        }
+        else {
+            let discountedPrice = parseFloat($('#price').val()) * (1 - parseFloat($('#discount_percentage').val()) / 100);
+            $('#discount_price').val(discountedPrice.toFixed(2));
+        }
     });
 
 
