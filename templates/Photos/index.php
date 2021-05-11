@@ -39,7 +39,7 @@
                     </td> <!--Displays an N/A if the photo has not been discounted yet. If it has, the discount price is displayed.-->
                     <td><?= h($photo->create_date) ?></td>
                     <td><?= $this->Html->image(ORIGINAL_PHOTO_PATH . '/' . $photo->file_name,
-                            ['alt' => $photo->file_name]) ?></td>
+                            ['alt' => $photo->file_name, 'url' => 'img' . DS . ORIGINAL_PHOTO_PATH . DS . $photo->file_name]) ?></td>
                     <td class="actions">
                         <?= $this->Html->link(__('Edit'), ['action' => 'edit', $photo->id]) ?>
                         <?= $this->Form->postLink(__('Delete'), ['action' => 'delete', $photo->id],
