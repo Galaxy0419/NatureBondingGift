@@ -10,6 +10,13 @@ namespace App\Controller;
 
 class LandingController extends AppController
 {
+    /**
+     * Home method
+     *
+     * @param int|null $id Category id.
+     * @return \Cake\Http\Response|null|void Renders view
+     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     */
     public function home($categoryId = null)
     {
         /* Use bones.php in layout folder as the base layout. */
@@ -26,6 +33,11 @@ class LandingController extends AppController
         $this->set(compact('photos'));
     }
 
+    /**
+     * About method
+     *
+     * @return \Cake\Http\Response|null|void Renders view
+     */
     public function about()
     {
         $this->viewBuilder()->setLayout('bones'); //uses bones.php in layout folder as the base layout.
