@@ -31,7 +31,6 @@ class PhotosController extends AppController
         $photos = $this->paginate($this->Photos);
         $this->set(compact('photos'));
     }
-    
 
     /**
      * Save photo entity method
