@@ -86,6 +86,19 @@ class LandingController extends AppController
     }
 
     /**
+     * Remove a photo from shopping cart method
+     *
+     * @param int $photoId Photo id.
+     * @return \Cake\Http\Response|null|void Renders view
+     */
+    public function removePhotoFromCart($photoId)
+    {
+        $cart = $this->request->getSession()->read('cart');
+        $this->request->getSession()->write('cart', array_diff($cart, [$photoId]));
+        $this->redirect(['action' => 'cart']);
+    }
+
+    /**
      * Clear shopping cart method
      *
      * @return \Cake\Http\Response|null|void Renders view

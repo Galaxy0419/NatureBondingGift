@@ -29,7 +29,7 @@
                     ]) ?>
                 </td>
                 <td class="actions">
-                    <?= $this->Html->link(__('Delete'), []) ?>
+                    <?= $this->Html->link(__('Delete'), ['action' => 'removePhotoFromCart', $photo->id]) ?>
                 </td>
                 <td>$<?= $this->Number->precision(is_null($photo->discount_price) ? $photo->price : $photo->discount_price, 2) ?></td>
             </tr>
