@@ -13,7 +13,7 @@ class LandingController extends AppController
     /**
      * Home method
      *
-     * @param int|null $id Category id.
+     * @param int|null $categoryId Category id.
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
