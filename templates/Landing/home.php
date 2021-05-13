@@ -17,8 +17,8 @@
             * the code below sets a string variable containing the path to the watermarked photo.*/
             $imagePath = WATERMARK_PHOTO_PATH . "/" . $photo->file_name; ?>
             <?php echo '<div class="col-4">'; ?>
-            <a class="test" data-lightbox="gallery" data-title='<?= $photo->description?>' href='img/<?= ($imagePath)?>'>
-            <?= $this->Html->image($imagePath)?>
+            <a class="test" data-lightbox="gallery" data-title='<?= $photo->description ."<br>" . 'Resolution:' . $photo->res_width . 'x' .  $photo->res_height?>' href='img/<?= ($imagePath)?>'>
+            <?= $this->Html->image($imagePath)?> 
             </a>
             <h4><?php echo $photo->name; ?></h4>  <!-displays photo name-->
             <?php if (!is_null($photo->discount_price) and $photo->price > $photo->discount_price) {
@@ -51,3 +51,5 @@
 </script>
 
 </html>
+
+<?= $photo->res_width?> . 'x' . <?= $photo->res_height?>
