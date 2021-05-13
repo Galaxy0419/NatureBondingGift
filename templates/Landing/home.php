@@ -55,6 +55,7 @@
                     ?>
 
                     <p><?= ucfirst($photo->category->name) ?></p>
+                    <?= $this->Html->link('Add to Cart', ['action' => 'addToCart', $photo->id], ['class' => 'button']) ?>
                 </div>
             <?php endforeach; ?>
         <?php endif; ?>

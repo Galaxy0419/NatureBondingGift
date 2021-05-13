@@ -13,7 +13,7 @@ class LandingController extends AppController
     /**
      * Home method
      *
-     * @param int|null $id Category id.
+     * @param int|null $categoryId Category id.
      * @return \Cake\Http\Response|null|void Renders view
      * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
      */
@@ -40,6 +40,89 @@ class LandingController extends AppController
      */
     public function about()
     {
-        $this->viewBuilder()->setLayout('bones'); //uses bones.php in layout folder as the base layout.
+        $this->viewBuilder()->setLayout('bones');
+    }
+
+    /**
+     * Add to shopping cart method
+     *
+     * @param int $photoId Photo id.
+     * @return \Cake\Http\Response|null|void Renders view
+     */
+    public function addToCart($photoId)
+    {
+        $cart = $this->request->getSession()->read('cart');
+
+        if (is_array($cart)) {
+            if (in_array(intval($photoId), $cart)) {
+                $this->Flash->error('The photo is already in the cart!');
+            } else {
+                array_push($cart, intval($photoId));
+                $this->request->getSession()->write('cart', $cart);
+                $this->Flash->success('The photo has been added to the shopping cart!');
+            }
+        } else {
+            $this->request->getSession()->delete('cart');
+            $this->request->getSession()->write('cart', [intval($photoId)]);
+            $this->Flash->success('The photo has been added to the shopping cart!');
+        }
+
+        $this->redirect(['action' => 'home']);
+    }
+
+    /**
+     * Sum total method
+     *
+     * @return float total price of the photos
+     */
+    public function getTotal($photos): float
+    {
+        $sum = 0.0;
+        foreach ($photos as $photo) {
+            $sum += is_null($photo->discount_price) ? $photo->price : $photo->discount_price;
+        }
+        return $sum;
+    }
+
+    /**
+     * Shopping cart method
+     *
+     * @return \Cake\Http\Response|null|void Renders view
+     */
+    public function cart()
+    {
+        $this->viewBuilder()->setLayout('bones');
+        $cart = $this->request->getSession()->read('cart');
+
+        $this->loadModel('Photos');
+        $photos = is_null($cart) || count($cart) == 0 ? [] : $this->Photos->find()->where(['id IN' => $cart]);
+        $this->set(compact('photos'));
+
+        $total = is_null($cart) || count($cart) == 0 ? 0.0 : $this->getTotal($photos);
+        $this->set(compact('total'));
+    }
+
+    /**
+     * Remove a photo from shopping cart method
+     *
+     * @param int $photoId Photo id.
+     * @return \Cake\Http\Response|null|void Renders view
+     */
+    public function removePhotoFromCart($photoId)
+    {
+        $cart = $this->request->getSession()->read('cart');
+        $this->request->getSession()->write('cart', array_diff($cart, [$photoId]));
+        $this->redirect(['action' => 'cart']);
+    }
+
+    /**
+     * Clear shopping cart method
+     *
+     * @return \Cake\Http\Response|null|void Renders view
+     */
+    public function clearCart()
+    {
+        $this->request->getSession()->delete('cart');
+        $this->redirect(['action' => 'cart']);
     }
 }

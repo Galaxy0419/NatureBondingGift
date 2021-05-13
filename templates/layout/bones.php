@@ -39,7 +39,7 @@
             </nav>
 
             <div class="cart-icon">
-                <a href=<?= $this->Url->build(['controller' => 'Cart', 'action' => 'cart']) ?>>
+                <a href=<?= $this->Url->build(['controller' => 'Landing', 'action' => 'cart']) ?>>
                     <?= $this->Html->image('cart.png', array('width' => '25px', 'height' => '25px')) ?>
                 </a>
             </div>
