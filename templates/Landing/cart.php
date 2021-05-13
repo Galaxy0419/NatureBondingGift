@@ -2,6 +2,7 @@
 /**
  * @var \App\View\AppView $this
  * @var \App\Model\Entity\Photo[]|\Cake\Collection\CollectionInterface $photos
+ * @var int $total
  */
 ?>
 
@@ -38,7 +39,7 @@
         <tr class="success">
             <td>Total</td>
             <td colspan=2/>
-            <td>$0</td>
+            <td>$<?= $this->Number->precision($total,2) ?></td>
         </tr>
         </tbody>
     </table>

@@ -71,6 +71,20 @@ class LandingController extends AppController
     }
 
     /**
+     * Sum total method
+     *
+     * @return float total price of the photos
+     */
+    public function getTotal($photos): float
+    {
+        $sum = 0.0;
+        foreach ($photos as $photo) {
+            $sum += is_null($photo->discount_price) ? $photo->price : $photo->discount_price;
+        }
+        return $sum;
+    }
+
+    /**
      * Shopping cart method
      *
      * @return \Cake\Http\Response|null|void Renders view
@@ -78,11 +92,14 @@ class LandingController extends AppController
     public function cart()
     {
         $this->viewBuilder()->setLayout('bones');
-
         $cart = $this->request->getSession()->read('cart');
+
         $this->loadModel('Photos');
         $photos = is_null($cart) || count($cart) == 0 ? [] : $this->Photos->find()->where(['id IN' => $cart]);
         $this->set(compact('photos'));
+
+        $total = is_null($cart) || count($cart) == 0 ? 0.0 : $this->getTotal($photos);
+        $this->set(compact('total'));
     }
 
     /**
