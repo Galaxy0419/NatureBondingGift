@@ -43,7 +43,7 @@
         </tbody>
     </table>
 
-    <?= $this->Html->link(__('Clear'), [], ['class' => 'button']) ?>
+    <?= $this->Html->link(__('Clear'), ['action' => 'clearCart'], ['class' => 'button']) ?>
 </div>
 
 <br><br><br><br>

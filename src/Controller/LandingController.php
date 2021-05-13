@@ -84,4 +84,15 @@ class LandingController extends AppController
         $photos = is_null($cart) || count($cart) == 0 ? [] : $this->Photos->find()->where(['id IN' => $cart]);
         $this->set(compact('photos'));
     }
+
+    /**
+     * Clear shopping cart method
+     *
+     * @return \Cake\Http\Response|null|void Renders view
+     */
+    public function clearCart()
+    {
+        $this->request->getSession()->delete('cart');
+        $this->redirect(['action' => 'cart']);
+    }
 }
