@@ -2,12 +2,26 @@
 <?php
 /**
  * @var \App\View\AppView $this
+ * @var \App\Model\Entity\Category[]|\Cake\Collection\CollectionInterface $categories
  * @var \App\Model\Entity\Photo[]|\Cake\Collection\CollectionInterface $photos
  */
 ?>
 
 <div class="small-container">
     <h2 class="title">All Photos</h2>
+
+    <div class="row">
+        <div class="col-sm-1">
+            <h4>Categories:</h4>
+        </div>
+        <?= $this->Html->link('All', ['action' => 'home', null], ['class' => 'button']) ?>
+        <?php foreach ($categories as $category): ?>
+            <?= $this->Html->link(ucfirst($category->name), ['action' => 'home', $category->id], ['class' => 'button']) ?>
+        <?php endforeach; ?>
+    </div>
+
+    <br><br>
+
     <div class="row">
         <?php foreach ($photos as $photo): ?>
             <!--
