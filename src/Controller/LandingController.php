@@ -40,6 +40,16 @@ class LandingController extends AppController
      */
     public function about()
     {
-        $this->viewBuilder()->setLayout('bones'); //uses bones.php in layout folder as the base layout.
+        $this->viewBuilder()->setLayout('bones');
+    }
+
+    /**
+     * Shopping cart method
+     *
+     * @return \Cake\Http\Response|null|void Renders view
+     */
+    public function cart()
+    {
+        $this->viewBuilder()->setLayout('bones');
     }
 }
