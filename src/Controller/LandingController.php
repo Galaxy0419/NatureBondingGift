@@ -44,6 +44,33 @@ class LandingController extends AppController
     }
 
     /**
+     * Add to shopping cart method
+     *
+     * @param int $photoId Photo id.
+     * @return \Cake\Http\Response|null|void Renders view
+     */
+    public function addToCart($photoId)
+    {
+        $cart = $this->request->getSession()->read('cart');
+
+        if (is_array($cart)) {
+            if (in_array(intval($photoId), $cart)) {
+                $this->Flash->error('The photo is already in the cart!');
+            } else {
+                array_push($cart, intval($photoId));
+                $this->request->getSession()->write('cart', $cart);
+                $this->Flash->success('The photo has been added to the shopping cart!');
+            }
+        } else {
+            $this->request->getSession()->delete('cart');
+            $this->request->getSession()->write('cart', [intval($photoId)]);
+            $this->Flash->success('The photo has been added to the shopping cart!');
+        }
+
+        $this->redirect(['action' => 'home']);
+    }
+
+    /**
      * Shopping cart method
      *
      * @return \Cake\Http\Response|null|void Renders view
