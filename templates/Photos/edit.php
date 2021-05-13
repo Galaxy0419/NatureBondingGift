@@ -61,7 +61,7 @@
     });
 
     $('#discount_percentage').change(function () {
-        if (parseFloat($('#discount_percentage').val()) < 0){
+        if (parseFloat($('#discount_percentage').val()) < 0 || parseFloat($('#discount_percentage').val()) > 100){
             $('#discount_percentage').val('');
             alert("Please enter a value between 0 and 100%. E.g.: To apply a 20% discount, enter 20.");
         }
