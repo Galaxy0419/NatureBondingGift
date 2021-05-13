@@ -69,7 +69,7 @@
                         <a href=<?= $this->Url->build(['controller' => 'Landing', 'action' => 'about']) ?>>About </a>
                     </li>
                     <li>
-                        <a href=<?= $this->Url->build(['controller' => 'Landing', 'action' => 'contact']) ?>>Contact Us</a>
+                        <a href=<?= $this->Url->build(['controller' => 'Enquiries', 'action' => 'add']) ?>>Contact Us</a>
                     </li>
                     <li>Delivery</li>
                     <li>FAQ</li>
