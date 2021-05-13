@@ -78,5 +78,10 @@ class LandingController extends AppController
     public function cart()
     {
         $this->viewBuilder()->setLayout('bones');
+
+        $cart = $this->request->getSession()->read('cart');
+        $this->loadModel('Photos');
+        $photos = is_null($cart) || count($cart) == 0 ? [] : $this->Photos->find()->where(['id IN' => $cart]);
+        $this->set(compact('photos'));
     }
 }
