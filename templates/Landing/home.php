@@ -31,7 +31,7 @@
             <div class="col-4">
                 <?= $this->Html->link($this->Html->image(WATERMARK_PHOTO_PATH . '/' . $photo->file_name),
                     'img' . '/' . WATERMARK_PHOTO_PATH . '/' . $photo->file_name,
-                    ['escape' => false, 'data-lightbox' => 'gallery', 'data-title' => $photo->description]) ?>
+                    ['escape' => false, 'data-lightbox' => 'gallery', 'data-title' => $photo->description . "<br>" . 'Resolution:' . $photo->res_width . 'x' .  $photo->res_height]) ?>
 
                 <h4><?= $photo->name ?></h4>
 
@@ -54,4 +54,4 @@
         <?php endforeach; ?>
     </div>
 </div>
-'<?= $photo->description ."<br>" . 'Resolution:' . $photo->res_width . 'x' .  $photo->res_height?>'
+git 
