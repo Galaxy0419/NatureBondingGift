@@ -44,7 +44,40 @@
         </tbody>
     </table>
 
+    <div class="small-container" style="padding-left: 925px">
+
     <?= $this->Html->link(__('Clear'), ['action' => 'clearCart'], ['class' => 'button']) ?>
+    </div>
+
+    <div id="paypal-button-container" style="padding-left: 150px "> </div>
+
+  
+    <script src="https://www.paypal.com/sdk/js?client-id=Aadi2rCSz_LWQVPHtxqqo_dNVkGEM6V7pn58zOxgOhRGxwzZDlbzGmc5QW2iSpEWijf0-X497P_khFqJ&currency=AUD"></script>
+
+    <script>
+        paypal.Buttons({
+            style:{
+                color: 'black',
+                label: 'pay',
+            },
+            createOrder: function(data, actions) {
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '<?= $this->Number->precision($total,2) ?>'
+                        }
+                    }]
+                });
+            },
+
+            onApprove: function(data, actions) {
+                return actions.order.capture().then(function(details) {
+                    // Show a success message to the buyer
+                    alert( details.payer.name.given_name + ' your order has been placed successfully!');
+                });
+            }
+        }).render('#paypal-button-container');
+    </script>
 </div>
 
 <br><br><br><br>
