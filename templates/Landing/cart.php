@@ -44,12 +44,13 @@
         </tbody>
     </table>
 
-    <div class="small-container" style="padding-left: 925px">
+    <div class="container-responsive" style="text-align: right">
 
-    <?= $this->Html->link(__('Clear'), ['action' => 'clearCart'], ['class' => 'button']) ?>
+        <?= $this->Html->link(__('Clear Cart'), ['action' => 'clearCart'], ['class' => 'clear']) ?>
     </div>
+    
 
-    <div id="paypal-button-container" style="padding-left: 150px "> </div>
+    <div id="paypal-button-container" style="text-align: center"> </div>
 
   
     <script src="https://www.paypal.com/sdk/js?client-id=Aadi2rCSz_LWQVPHtxqqo_dNVkGEM6V7pn58zOxgOhRGxwzZDlbzGmc5QW2iSpEWijf0-X497P_khFqJ&currency=AUD"></script>
