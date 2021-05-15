@@ -2,6 +2,7 @@
 <head>
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css" />
     <title>Home - Natures Bonding Gift</title>
 
 
@@ -36,13 +37,10 @@
                         <a href="<?= $this->Url->build(['controller' => 'Enquiries', 'action' => 'add']) ?>">Contact</a>
                     </li>
                 </ul>
-            </nav>
-
-            <div class="cart-icon">
-                <a href=<?= $this->Url->build(['controller' => 'Landing', 'action' => 'cart']) ?>>
-                    <?= $this->Html->image('cart.png', array('width' => '25px', 'height' => '25px')) ?>
+                <a href=<?= $this->Url->build(['controller'=>'Cart','action'=>'cart']);?>>
+                    <i class="fas fa-shopping-cart"></i> Cart
                 </a>
-            </div>
+            </nav>
         </div>
     </div>
 </div>
