@@ -37,7 +37,7 @@
                         <a href="<?= $this->Url->build(['controller' => 'Enquiries', 'action' => 'add']) ?>">Contact</a>
                     </li>
                 </ul>
-                <a href=<?= $this->Url->build(['controller'=>'Cart','action'=>'cart']);?>>
+                <a href=<?= $this->Url->build(['controller'=>'Landing','action'=>'cart']);?>>
                     <i class="fas fa-shopping-cart"></i> Cart
                 </a>
             </nav>
