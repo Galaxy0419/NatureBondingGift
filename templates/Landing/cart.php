@@ -58,8 +58,8 @@
     <script>
         paypal.Buttons({
             style:{
-                color: 'black',
-                label: 'pay',
+                color: 'gold',
+                label: 'pay'
             },
             createOrder: function(data, actions) {
                 return actions.order.create({
