@@ -3,23 +3,37 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use App\Model\Entity\Photo;
+use Authorization\Controller\Component\AuthorizationComponent;
+use Exception;
 use Imagick;
 use ImagickDraw;
 use ImagickException;
 use ImagickPixel;
 use Psr\Http\Message\UploadedFileInterface;
 
-use App\Model\Entity\Photo;
-
 define('PHOTO_FILE_FORMATS', ['image/jpeg', 'image/png']);
 /**
  * Photos Controller
  *
+ * @property AuthorizationComponent Authorization
  * @property \App\Model\Table\PhotosTable $Photos
  * @method \App\Model\Entity\Photo[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class PhotosController extends AppController
 {
+    /**
+     * Initialize method
+     *
+     * @return void
+     * @throws Exception
+     */
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->Authorization->skipAuthorization();
+    }
+
     /**
      * Index method
      *

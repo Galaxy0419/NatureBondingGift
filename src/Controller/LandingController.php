@@ -2,24 +2,39 @@
 
 namespace App\Controller;
 
+use App\Model\Table\CategoriesTable;
+use App\Model\Table\PhotosTable;
+use Authentication\Controller\Component\AuthenticationComponent;
+use Authorization\Controller\Component\AuthorizationComponent;
+use Cake\Datasource\Exception\RecordNotFoundException;
+use Cake\Http\Response;
+
 /**
- * @property \App\Model\Table\CategoriesTable $Categories
- * @property \App\Model\Table\PhotosTable $Photos
+ * @property AuthenticationComponent Authentication
+ * @property AuthorizationComponent Authorization
+ * @property CategoriesTable $Categories
+ * @property PhotosTable $Photos
  * @method \App\Model\Entity\Photo[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 
 class LandingController extends AppController
 {
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->Authentication->setConfig(['requireIdentity' => false]);
+        $this->Authorization->skipAuthorization();
+    }
+
     /**
      * Home method
      *
      * @param int|null $categoryId Category id.
-     * @return \Cake\Http\Response|null|void Renders view
-     * @throws \Cake\Datasource\Exception\RecordNotFoundException When record not found.
+     * @return void Renders view
+     * @throws RecordNotFoundException When record not found.
      */
     public function home($categoryId = null)
     {
-        /* Use bones.php in layout folder as the base layout. */
         $this->viewBuilder()->setLayout('bones');
 
         /* Load and retrieve all records from the Categories and Photos tables and pass them to the view. */
@@ -36,7 +51,7 @@ class LandingController extends AppController
     /**
      * About method
      *
-     * @return \Cake\Http\Response|null|void Renders view
+     * @return Response|null|void Renders view
      */
     public function about()
     {
@@ -47,7 +62,7 @@ class LandingController extends AppController
      * Add to shopping cart method
      *
      * @param int $photoId Photo id.
-     * @return \Cake\Http\Response|null|void Renders view
+     * @return void Renders view
      */
     public function addToCart($photoId)
     {
@@ -87,7 +102,7 @@ class LandingController extends AppController
     /**
      * Shopping cart method
      *
-     * @return \Cake\Http\Response|null|void Renders view
+     * @return void Renders view
      */
     public function cart()
     {
@@ -106,7 +121,7 @@ class LandingController extends AppController
      * Remove a photo from shopping cart method
      *
      * @param int $photoId Photo id.
-     * @return \Cake\Http\Response|null|void Renders view
+     * @return Response|null|void Renders view
      */
     public function removePhotoFromCart($photoId)
     {
@@ -118,7 +133,7 @@ class LandingController extends AppController
     /**
      * Clear shopping cart method
      *
-     * @return \Cake\Http\Response|null|void Renders view
+     * @return void Renders view
      */
     public function clearCart()
     {

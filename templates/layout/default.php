@@ -41,6 +41,8 @@
         <?= $this->Html->link('Categories', ['controller' => 'Categories']) ?>
         <?= $this->Html->link('Photos', ['controller' => 'Photos']) ?>
         <?= $this->Html->link('Enquiries', ['controller' => 'Enquiries']) ?>
+        <?= $this->Html->link('Admins', ['controller' => 'Admins']) ?>
+        <?= $this->Html->link('Logout', ['controller' => 'Admins', 'action' => 'logout']) ?>
     </div>
 </nav>
 

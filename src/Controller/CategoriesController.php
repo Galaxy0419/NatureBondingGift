@@ -3,14 +3,30 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Authorization\Controller\Component\AuthorizationComponent;
+use Exception;
+
 /**
  * Categories Controller
  *
+ * @property AuthorizationComponent Authorization
  * @property \App\Model\Table\CategoriesTable $Categories
  * @method \App\Model\Entity\Category[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class CategoriesController extends AppController
 {
+    /**
+     * Initialize method
+     *
+     * @return void
+     * @throws Exception
+     */
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->Authorization->skipAuthorization();
+    }
+
     /**
      * Index method
      *

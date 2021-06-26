@@ -3,16 +3,34 @@ declare(strict_types=1);
 
 namespace App\Controller;
 
+use Authentication\Controller\Component\AuthenticationComponent;
+use Authorization\Controller\Component\AuthorizationComponent;
 use Cake\Mailer\Mailer;
+use Exception;
 
 /**
  * Enquiries Controller
  *
+ * @property AuthenticationComponent Authentication
+ * @property AuthorizationComponent Authorization
  * @property \App\Model\Table\EnquiriesTable $Enquiries
  * @method \App\Model\Entity\Enquiry[]|\Cake\Datasource\ResultSetInterface paginate($object = null, array $settings = [])
  */
 class EnquiriesController extends AppController
 {
+    /**
+     * Initialize method
+     *
+     * @return void
+     * @throws Exception
+     */
+    public function initialize(): void
+    {
+        parent::initialize();
+        $this->Authentication->addUnauthenticatedActions(['add']);
+        $this->Authorization->skipAuthorization();
+    }
+
     /**
      * Index method
      *

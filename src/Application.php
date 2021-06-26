@@ -16,6 +16,18 @@ declare(strict_types=1);
  */
 namespace App;
 
+use Authentication\AuthenticationService;
+use Authentication\AuthenticationServiceInterface;
+use Authentication\AuthenticationServiceProviderInterface;
+use Authentication\Identifier\IdentifierInterface;
+use Authentication\Middleware\AuthenticationMiddleware;
+use Authorization\AuthorizationService;
+use Authorization\AuthorizationServiceInterface;
+use Authorization\AuthorizationServiceProviderInterface;
+use Authorization\Exception\ForbiddenException;
+use Authorization\Exception\MissingIdentityException;
+use Authorization\Middleware\AuthorizationMiddleware;
+use Authorization\Policy\OrmResolver;
 use Cake\Core\Configure;
 use Cake\Core\ContainerInterface;
 use Cake\Core\Exception\MissingPluginException;
@@ -28,6 +40,8 @@ use Cake\Http\MiddlewareQueue;
 use Cake\ORM\Locator\TableLocator;
 use Cake\Routing\Middleware\AssetMiddleware;
 use Cake\Routing\Middleware\RoutingMiddleware;
+use Cake\Routing\Router;
+use Psr\Http\Message\ServerRequestInterface;
 
 /**
  * Application setup class.
@@ -36,6 +50,7 @@ use Cake\Routing\Middleware\RoutingMiddleware;
  * want to use in your application.
  */
 class Application extends BaseApplication
+    implements AuthenticationServiceProviderInterface, AuthorizationServiceProviderInterface
 {
     /**
      * Load all the application configuration and bootstrap logic.
@@ -44,7 +59,6 @@ class Application extends BaseApplication
      */
     public function bootstrap(): void
     {
-        // Call parent to load bootstrap from files.
         parent::bootstrap();
 
         if (PHP_SAPI === 'cli') {
@@ -56,7 +70,7 @@ class Application extends BaseApplication
             );
         }
 
-        /*
+        /**
          * Only try to load DebugKit in development mode
          * Debug Kit should not be installed on a production system
          */
@@ -64,7 +78,11 @@ class Application extends BaseApplication
             $this->addPlugin('DebugKit');
         }
 
-        // Load more plugins here
+        /* Add authentication plugin */
+        $this->addPlugin('Authentication');
+
+        /* Add authorization plugin */
+        $this->addPlugin('Authorization');
     }
 
     /**
@@ -92,6 +110,21 @@ class Application extends BaseApplication
             // using it's second constructor argument:
             // `new RoutingMiddleware($this, '_cake_routes_')`
             ->add(new RoutingMiddleware($this))
+
+            // Authentication middleware
+            ->add(new AuthenticationMiddleware($this))
+
+            // Authorization middleware
+            ->add(new AuthorizationMiddleware($this, [
+                'unauthorizedHandler' => [
+                    'className' => 'Authorization.Redirect',
+                    'url' => '/admins/login?denied=true',
+                    'exceptions' => [
+                        MissingIdentityException::class,
+                        ForbiddenException::class
+                    ]
+                ]
+            ]))
 
             // Parse various types of encoded request bodies so that they are
             // available as array through $request->getData()
@@ -136,5 +169,51 @@ class Application extends BaseApplication
         $this->addPlugin('Migrations');
 
         // Load more plugins here
+    }
+
+    /**
+     * Get authentication service
+     *
+     * @param ServerRequestInterface $request
+     * @return AuthenticationServiceInterface
+     */
+    public function getAuthenticationService(ServerRequestInterface $request): AuthenticationServiceInterface
+    {
+        $service = new AuthenticationService([
+            'unauthenticatedRedirect' => Router::url('/admins/login'),
+            'queryParam' => 'redirect'
+        ]);
+
+        $authFields = [
+            IdentifierInterface::CREDENTIAL_USERNAME => 'username',
+            IdentifierInterface::CREDENTIAL_PASSWORD => 'password'
+        ];
+
+        $service->loadAuthenticator('Authentication.Session');
+        $service->loadAuthenticator('Authentication.Form', [
+            'fields' => $authFields,
+            'loginUrl' => Router::url('/admins/login'),
+        ]);
+
+        $service->loadIdentifier('Authentication.Password', [
+            'fields' => $authFields,
+            'resolver' => [
+                'className' => 'Authentication.Orm',
+                'userModel' => 'Admins'
+            ]
+        ]);
+
+        return $service;
+    }
+
+    /**
+     * Get authorization service
+     *
+     * @param ServerRequestInterface $request
+     * @return AuthorizationServiceInterface
+     */
+    public function getAuthorizationService(ServerRequestInterface $request): AuthorizationServiceInterface
+    {
+        return new AuthorizationService(new OrmResolver());
     }
 }
