@@ -14,15 +14,15 @@
         <div class="col-sm-1">
             <h4>Categories:</h4>
         </div>
-        <?= $this->Html->link('All', ['action' => 'home', null], ['class' => 'button']) ?>
+        <button class="button" onclick="reloadPhotoByCategory(null)">All</button>
         <?php foreach ($categories as $category): ?>
-            <?= $this->Html->link(ucfirst($category->name), ['action' => 'home', $category->id], ['class' => 'button']) ?>
+            <button class="button" onclick="reloadPhotoByCategory(<?= $category->id ?>)"><?= $category->name ?></button>
         <?php endforeach; ?>
     </div>
 
     <br><br>
 
-    <div class="row">
+    <div id="photos" class="row">
         <?php if ($photos->count() == 0): ?>
             <br>
             <h4>There are no photos matching this category currently</h4>
@@ -44,7 +44,8 @@
                         Display photo price. Original price is struck and discounted price and percentage is displayed
                         only if the product has been discounted.  Otherwise, the original price is shown.
                     -->
-                    <?php
+                    <p>
+                        <?php
                         if (!is_null($photo->discount_price) and $photo->price > $photo->discount_price) {
                             $discount_percent = round((1 - ($photo->discount_price / $photo->price)) * 100);
                             echo '<s>$' . $this->Number->precision($photo->price, 2) . '</s>'
@@ -52,7 +53,8 @@
                         } else {
                             echo '$' . $this->Number->precision($photo->price, 2);
                         }
-                    ?>
+                        ?>
+                    </p>
 
                     <p><?= ucfirst($photo->category->name) ?></p>
                     <?= $this->Html->link('Add to Cart', ['action' => 'addToCart', $photo->id], ['class' => 'button']) ?>
@@ -65,10 +67,79 @@
 <br><br>
 
 <script type="text/javascript">
-    document.addEventListener("contextmenu", function (e) {
+    document.addEventListener("contextmenu", (e) => {
         if (e.target.nodeName === "IMG") {
             e.preventDefault();
             alert("Copying images is disabled for this page.");
         }
     });
+
+    function reloadPhotoByCategory(categoryId) {
+        let xhr = new XMLHttpRequest();
+
+        xhr.onload = function () {
+            /* Parse JSON response */
+            const photosJson = JSON.parse(this.responseText);
+
+            /* Clear all photos inside the div */
+            const photosDiv = document.getElementById("photos");
+            photosDiv.innerHTML = ''
+
+            if (photosJson.photos.length === 0) {
+                photosDiv.innerHTML = '<br><h4>There are no photos matching this category currently</h4>'
+            } else {
+                /* Re-construct the photo list using DOM */
+                for (let i = 0; i < photosJson.photos.length; ++i) {
+                    const column = document.createElement('div');
+                    column.className = "col-4";
+
+                    const image = document.createElement('img');
+                    image.src = "/img/<?= WATERMARK_PHOTO_PATH ?>/" + photosJson.photos[i].file_name;
+
+                    const imageAnchor = document.createElement('a');
+                    imageAnchor.href = "/img/<?= WATERMARK_PHOTO_PATH ?>/" + photosJson.photos[i].file_name;
+                    imageAnchor.setAttribute('data-lightbox', 'gallery');
+                    imageAnchor.setAttribute('data-title', `${photosJson.photos[i].name}<br>Resolution: ${photosJson.photos[i].res_width}x${photosJson.photos[i].res_height}`);
+                    imageAnchor.appendChild(image);
+                    column.appendChild(imageAnchor);
+
+                    const name = document.createElement('h4');
+                    name.innerText = photosJson.photos[i].name;
+                    column.appendChild(name);
+
+                    const price = document.createElement('p');
+                    if (photosJson.photos[i].discount_price === null) {
+                        price.innerText = '$' + photosJson.photos[i].price.toFixed(2);
+                    } else {
+                        const originalPrice = document.createElement('s');
+                        originalPrice.innerText = '$' + photosJson.photos[i].price.toFixed(2);
+                        price.appendChild(originalPrice);
+
+                        price.append(' $' + photosJson.photos[i].discount_price.toFixed(2));
+
+                        const discountPercentage = document.createElement('b');
+                        discountPercentage.innerText = ` ${((1.00 -
+                            photosJson.photos[i].discount_price / photosJson.photos[i].price) * 100).toFixed(0)}% OFF!!`;
+                        price.appendChild(discountPercentage);
+                    }
+                    column.appendChild(price);
+
+                    const categoryName = document.createElement('p');
+                    categoryName.innerText = photosJson.photos[i].category.name;
+                    column.appendChild(categoryName);
+
+                    const addToCartButton = document.createElement('a');
+                    addToCartButton.href = `/landing/add-to-cart/${photosJson.photos[i].category.id}`;
+                    addToCartButton.className = 'button';
+                    addToCartButton.innerText = 'Add to Cart';
+                    column.appendChild(addToCartButton);
+
+                    photosDiv.appendChild(column);
+                }
+            }
+        };
+
+        xhr.open('GET', `/landing/home${categoryId === null ? '' : `/${categoryId}`}.json`);
+        xhr.send();
+    }
 </script>

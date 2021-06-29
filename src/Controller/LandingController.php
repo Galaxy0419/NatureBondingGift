@@ -35,9 +35,6 @@ class LandingController extends AppController
      */
     public function home($categoryId = null)
     {
-        $this->viewBuilder()->setLayout('bones');
-
-        /* Load and retrieve all records from the Categories and Photos tables and pass them to the view. */
         $this->loadModel('Categories');
         $categories = $this->Categories->find();
         $this->set(compact('categories'));
@@ -46,6 +43,9 @@ class LandingController extends AppController
         $photos = $this->Photos->find('all', ['contain' => ['Categories']])
             ->where(is_null($categoryId) ? [] : ['category_id' => $categoryId]);
         $this->set(compact('photos'));
+
+        $this->viewBuilder()->setLayout('bones');
+        $this->viewBuilder()->setOption('serialize', ['photos']);
     }
 
     /**

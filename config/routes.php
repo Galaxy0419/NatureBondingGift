@@ -48,6 +48,9 @@ $routes->scope('/', function (RouteBuilder $builder) {
     /* Connect default route to landing page */
     $builder->connect('/', ['controller' => 'Landing', 'action' => 'home']);
 
+    /* Enable JSON extension */
+    $builder->setExtensions(['json']);
+
     /*
      * Connect catchall routes for all controllers.
      *
