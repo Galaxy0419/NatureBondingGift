@@ -5,9 +5,6 @@
  */
 ?>
 
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
-
 <div class="row">
     <aside class="column">
         <div class="side-nav">
@@ -45,31 +42,38 @@
 </div>
 
 <script>
-    $('#price').change(function () {
-        $('#discount_price').val('');
-        $('#discount_percentage').val('');
-    });
-    //sets discount price and percentage to null as any changes to the original price should override any previously set discount prices.
+    const price = document.getElementById('price')
+    const discountPrice = document.getElementById('discount_price')
+    const discountPercentage = document.getElementById('discount_percentage')
 
-    $('#discount_price').change(function () {
-        if ($('#discount_price').val()>$('#price').val()){
-            $('#discount_price').val('');
-            alert("Discount price entered is greater than the original price. If you wish to increase the price, please modify the original price instead.")
-        }
-        var percentage = Math.round((1 - (parseFloat($('#discount_price').val()) / parseFloat($('#price').val()))) * 100);
-        $('#discount_percentage').val(percentage + '%');
+    price.addEventListener('change', () => {
+        discountPrice.value = '';
+        discountPercentage.value = '';
     });
 
-    $('#discount_percentage').change(function () {
-        if (parseFloat($('#discount_percentage').val()) < 0 || parseFloat($('#discount_percentage').val()) > 100){
-            $('#discount_percentage').val('');
-            alert("Please enter a value between 0 and 100%. E.g.: To apply a 20% discount, enter 20.");
-        }
-        else {
-            let discountedPrice = parseFloat($('#price').val()) * (1 - parseFloat($('#discount_percentage').val()) / 100);
-            $('#discount_price').val(discountedPrice.toFixed(2));
+    discountPrice.addEventListener('change', () => {
+        if (price.value !== "") {
+            console.log(price.value);
+            console.log(discountPrice.value);
+            if (discountPrice.value < price.value) {
+                discountPercentage.value = (1 - discountPrice.value / price.value) * 100;
+            } else {
+                alert('Discount price must be less than original price!');
+            }
+        } else {
+            alert("Original price is empty. Please enter original price first.")
         }
     });
 
-
+    discountPercentage.addEventListener('change', () => {
+        if (price.value !== "") {
+            if (discountPercentage.value > 0 && discountPercentage.value < 100) {
+                discountPrice.value = price.value * (1 - discountPercentage.value / 100);
+            } else {
+                alert('Discount percentage must be between 0 and 100!');
+            }
+        } else {
+            alert("Original price is empty. Please enter original price first.")
+        }
+    });
 </script>
