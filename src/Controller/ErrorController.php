@@ -17,7 +17,6 @@ declare(strict_types=1);
 namespace App\Controller;
 
 use Cake\Event\EventInterface;
-use Exception;
 
 /**
  * Error Handling Controller
@@ -26,17 +25,6 @@ use Exception;
  */
 class ErrorController extends AppController
 {
-    /**
-     * Initialization hook method.
-     *
-     * @return void
-     * @throws Exception
-     */
-    public function initialize(): void
-    {
-        $this->loadComponent('RequestHandler');
-    }
-
     /**
      * beforeRender callback.
      *
