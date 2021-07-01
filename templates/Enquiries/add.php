@@ -4,24 +4,21 @@
  * @var \App\Model\Entity\Enquiry $enquiry
  */
 ?>
-<div class="small-container">
-    <div class="enquiries form content">
-        <?= $this->Form->create($enquiry) ?>
-        <fieldset>
-            <legend><?= __('Add Enquiry') ?></legend>
-            <?= $this->Form->control('name') ?>
-            <br>
-            <?= $this->Form->control('email') ?>
-            <br>
-            <?= $this->Form->control('subject') ?>
-            <br>
-            <?= $this->Form->control('description', ['type' => 'textarea', 'style' => 'height: 256px']) ?>
-            <br>
-        </fieldset>
-        <?= $this->Form->submit(__('Submit')) ?>
-        <?= $this->Form->end() ?>
-    </div>
-</div>
+<h1 class="text-center my-5 pb-4 border-bottom border-4">Submit an Enquiry</h1>
 
-<br>
-<br>
+<div class="small-container border rounded my-5 p-4 enquiries">
+    <?= $this->Form->create($enquiry) ?>
+
+    <?= $this->Form->control('name',
+        ['label' => ['class' => 'form-label'], 'class' => 'form-control mb-4']) ?>
+    <?= $this->Form->control('email',
+        ['label' => ['class' => 'form-label'], 'class' => 'form-control mb-4']) ?>
+    <?= $this->Form->control('subject',
+        ['label' => ['class' => 'form-label'], 'class' => 'form-control mb-4']) ?>
+    <?= $this->Form->control('description',
+        ['label' => ['class' => 'form-label'], 'type' => 'textarea', 'rows' => '12', 'class' => 'form-control mb-4']) ?>
+
+    <?= $this->Form->submit(__('Submit'), ['class' => 'btn btn-primary']) ?>
+
+    <?= $this->Form->end() ?>
+</div>
