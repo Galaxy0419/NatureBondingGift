@@ -10,13 +10,13 @@
 <div class="small-container">
     <h2 class="title">All Photos</h2>
 
-    <div class="row">
-        <div class="col-sm-1">
+    <div class="row justify-content-start">
+        <div class="col-sm-auto">
             <h4>Categories:</h4>
         </div>
-        <button class="button" onclick="reloadPhotoByCategory(null)">All</button>
+        <button class="button col-sm-auto ms-2" onclick="reloadPhotoByCategory(null)">All</button>
         <?php foreach ($categories as $category): ?>
-            <button class="button" onclick="reloadPhotoByCategory(<?= $category->id ?>)"><?= $category->name ?></button>
+            <button class="button col-sm-auto ms-2" onclick="reloadPhotoByCategory(<?= $category->id ?>)"><?= $category->name ?></button>
         <?php endforeach; ?>
     </div>
 
