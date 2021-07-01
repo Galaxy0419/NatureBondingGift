@@ -45,7 +45,7 @@
     </div>
 </div>
 
-<div class="container">
+<div id="top-level-container" class="container">
     <?= $this->Flash->render() ?>
     <?= $this->fetch('content') ?>
 </div>

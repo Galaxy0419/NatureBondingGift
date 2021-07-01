@@ -51,7 +51,7 @@ class LandingController extends AppController
     /**
      * About method
      *
-     * @return Response|null|void Renders view
+     * @return void Renders view
      */
     public function about()
     {
@@ -62,27 +62,26 @@ class LandingController extends AppController
      * Add to shopping cart method
      *
      * @param int $photoId Photo id.
-     * @return void Renders view
+     * @return Response Response json
      */
     public function addToCart($photoId)
     {
+        $this->autoRender = false;
         $cart = $this->request->getSession()->read('cart');
 
         if (is_array($cart)) {
             if (in_array(intval($photoId), $cart)) {
-                $this->Flash->error('The photo is already in the cart!');
+                return $this->response->withStringBody(json_encode(['ok' => false]));
             } else {
                 array_push($cart, intval($photoId));
                 $this->request->getSession()->write('cart', $cart);
-                $this->Flash->success('The photo has been added to the shopping cart!');
             }
         } else {
             $this->request->getSession()->delete('cart');
             $this->request->getSession()->write('cart', [intval($photoId)]);
-            $this->Flash->success('The photo has been added to the shopping cart!');
         }
 
-        $this->redirect(['action' => 'home']);
+        return $this->response->withStringBody(json_encode(['ok' => true]));
     }
 
     /**
@@ -123,11 +122,11 @@ class LandingController extends AppController
      * @param int $photoId Photo id.
      * @return Response|null|void Renders view
      */
-    public function removePhotoFromCart($photoId)
+    public function removeFromCart($photoId)
     {
+        $this->autoRender = false;
         $cart = $this->request->getSession()->read('cart');
         $this->request->getSession()->write('cart', array_diff($cart, [$photoId]));
-        $this->redirect(['action' => 'cart']);
     }
 
     /**
@@ -137,7 +136,7 @@ class LandingController extends AppController
      */
     public function clearCart()
     {
+        $this->autoRender = false;
         $this->request->getSession()->delete('cart');
-        $this->redirect(['action' => 'cart']);
     }
 }

@@ -57,7 +57,7 @@
                     </p>
 
                     <p><?= ucfirst($photo->category->name) ?></p>
-                    <?= $this->Html->link('Add to Cart', ['action' => 'addToCart', $photo->id], ['class' => 'button']) ?>
+                    <button class="button" onclick="addToCart(<?= $photo->id ?>)">Add to Cart</button>
                 </div>
             <?php endforeach; ?>
         <?php endif; ?>
@@ -140,6 +140,27 @@
         };
 
         xhr.open('GET', `/landing/home${categoryId === null ? '' : `/${categoryId}`}.json`);
+        xhr.send();
+    }
+
+    function addToCart(photoId) {
+        const xhr = new XMLHttpRequest();
+
+        xhr.onload = function() {
+            const statusJson = JSON.parse(this.responseText);
+            const topLevelContainer = document.getElementById('top-level-container');
+
+            const flashDiv = document.createElement('div');
+            flashDiv.className = statusJson.ok === true ? 'message success' : 'message error'
+            flashDiv.innerText = statusJson.ok === true ?
+                'The photo has been added to the shopping cart!' : 'The photo is already in the cart!';
+            flashDiv.setAttribute('onclick', "this.classList.add('hidden');");
+
+            topLevelContainer.prepend(flashDiv);
+            setTimeout(_ => { flashDiv.remove(); }, 2000);
+        };
+
+        xhr.open('GET', `/landing/add-to-cart/${photoId}`);
         xhr.send();
     }
 </script>
