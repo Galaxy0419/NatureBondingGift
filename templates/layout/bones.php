@@ -2,12 +2,10 @@
 <head>
     <?= $this->Html->charset() ?>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.8.2/css/all.css" />
     <title>Home - Natures Bonding Gift</title>
 
-
     <?= $this->Html->meta('icon', 'img/nbg-logo.png') ?>
-    <?= $this->Html->css(['normalize.min', 'milligram.min', 'cake', 'bootstrap.min', 'lightbox', 'rubik-font.css', 'style']) ?>
+    <?= $this->Html->css(['bootstrap.min', 'lightbox', 'rubik-font.css', 'style']) ?>
     <?= $this->Html->script(['jquery.min', 'lightbox.min']) ?>
 
     <?= $this->fetch('meta') ?>
@@ -16,78 +14,65 @@
 </head>
 
 <body>
-<div class="header">
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark mb-5">
     <div class="container">
-        <div class="navbar">
-            <div class="logo">
-                <a href=<?= $this->Url->build(['controller' => 'Landing', 'action' => 'home']) ?>>
-                    <?= $this->Html->image('nbg-logo.png', array('width' => '150px')) ?>
-                </a>
-            </div>
+        <div class="navbar-brand">
+            <?= $this->Html->image('logo.png', ['width' => '96px']) ?>
+        </div>
 
-            <nav>
-                <ul style="max-height: 0">
-                    <li>
-                        <a href=<?= $this->Url->build(['controller' => 'Landing', 'action' => 'home']) ?>>Home</a>
-                    </li>
-                    <li>
-                        <a href=<?= $this->Url->build(['controller' => 'Landing', 'action' => 'about']) ?>>About</a>
-                    </li>
-                    <li>
-                        <a href="<?= $this->Url->build(['controller' => 'Enquiries', 'action' => 'add']) ?>">Contact</a>
-                    </li>
-                </ul>
-                <a href=<?= $this->Url->build(['controller'=>'Landing','action'=>'cart']);?>>
-                    <i class="fas fa-shopping-cart"></i> Cart
-                </a>
-            </nav>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item">
+                    <a href="<?= $this->Url->build(['controller' => 'Landing', 'action' => 'home']) ?>" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= $this->Url->build(['controller' => 'Landing', 'action' => 'about']) ?>" class="nav-link">About</a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= $this->Url->build(['controller' => 'Enquiries', 'action' => 'add']) ?>" class="nav-link">Enquiry</a>
+                </li>
+                <li class="nav-item">
+                    <a href="<?= $this->Url->build(['controller' => 'Landing', 'action' => 'cart']) ?>" class="nav-link">Cart</a>
+                </li>
+            </ul>
         </div>
     </div>
-</div>
+</nav>
 
 <div id="top-level-container" class="container">
     <?= $this->Flash->render() ?>
     <?= $this->fetch('content') ?>
 </div>
 
-<div class="footer">
+<footer class="footer bg-dark">
     <div class="container">
         <div class="row">
-            <div class="footer-col-1">
-                <div class="footer-logo">
-                    <?= $this->Html->image('ngbwhite.png') ?>
-                    <p> Our Purpose Is To Find You A Gift Of Nature.</p>
-                </div>
+            <div class="col-auto">
+                <?= $this->Html->image('logo.png', ['width' => '128px']) ?>
+                <p class="text-light">Our Purpose Is To Find You A Gift Of Nature.</p>
             </div>
 
-            <div class="footer-col-2">
+            <div class="col-auto">
                 <h3>Useful Links</h3>
-                <ul>
-                    <li>
-                        <a href=<?= $this->Url->build(['controller' => 'Landing', 'action' => 'about']) ?>>About </a>
-                    </li>
-                    <li>
-                        <a href=<?= $this->Url->build(['controller' => 'Enquiries', 'action' => 'add']) ?>>Contact Us</a>
-                    </li>
-                    <li>Delivery</li>
-                    <li>FAQ</li>
-                    <li>Privacy Policy</li>
-                </ul>
+                <a class="link-light" href=<?= $this->Url->build(['controller' => 'Landing', 'action' => 'about']) ?>>About </a><br>
+                <a class="link-light" href=<?= $this->Url->build(['controller' => 'Enquiries', 'action' => 'add']) ?>>Contact Us</a><br>
+                <a class="link-light">Delivery</a><br>
+                <a class="link-light">FAQ</a><br>
+                <a class="link-light">Privacy Policy</a><br>
             </div>
 
-            <div class="footer-col-3">
+            <div class="col-auto">
                 <h3>Follow Us</h3>
-                <div class="icons">
-                    <?= $this->Html->image('facebook.png', array('width' => '35px', 'height' => '35px')) ?>
-                    <?= $this->Html->image('instagram.png', array('width' => '35px', 'height' => '35px')) ?>
-                    <?= $this->Html->image('twitter.png', array('width' => '35px', 'height' => '35px')) ?>
-                </div>
+                <?= $this->Html->image('facebook.png', ['width' => '32px', 'height' => '32px']) ?>
+                <?= $this->Html->image('instagram.png', ['width' => '32px', 'height' => '32px']) ?>
+                <?= $this->Html->image('twitter.png', ['width' => '32px', 'height' => '32px']) ?>
             </div>
         </div>
-        <hr>
-        <p class="copyright">Copyright 2021 - Natures Bonding Gift</p>
+
+        <hr class="bg-light">
+        <p class="text-light text-center pb-4">Copyright 2021 - Natures Bonding Gift</p>
     </div>
-</div>
+</footer>
 
 <script>
     lightbox.option({
