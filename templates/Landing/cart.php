@@ -6,8 +6,8 @@
  */
 ?>
 
-<div class="small-container">
-    <h2 class="title">Shopping Cart</h2>
+<div class="small-container mb-5">
+    <h1 class="text-center my-5 pb-4 border-bottom border-4">Shopping Cart</h1>
 
     <table class="table">
         <thead>

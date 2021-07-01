@@ -8,7 +8,7 @@
 ?>
 
 <div class="small-container">
-    <h2 class="title">All Photos</h2>
+    <h1 class="text-center my-5 pb-4 border-bottom border-4">All Photos</h1>
 
     <div class="row justify-content-start">
         <div class="col-sm-auto">
@@ -25,26 +25,27 @@
     <div id="photos" class="row">
         <?php if ($photos->count() == 0): ?>
             <br>
-            <h4>There are no photos matching this category currently</h4>
+            <h4 class="text-center">There are no photos matching this category currently</h4>
         <?php else: ?>
             <?php foreach ($photos as $photo): ?>
                 <!--
                     For loop will cycle through all the photos in the database object passed from LandingController.php
                     and display them on the page.  The code below sets a string variable containing the path to the watermarked photo.
                 -->
-                <div class="col-4">
-                    <?= $this->Html->link($this->Html->image(WATERMARK_PHOTO_PATH . '/' . $photo->file_name),
+                <div class="col-3">
+                    <?= $this->Html->link(
+                        $this->Html->image(WATERMARK_PHOTO_PATH . '/' . $photo->file_name, ['class' => 'w-100']),
                         'img' . '/' . WATERMARK_PHOTO_PATH . '/' . $photo->file_name,
-                        ['escape' => false, 'data-lightbox' => 'gallery', 'data-title' => $photo->description .
-                            '<br>' . 'Resolution:' . $photo->res_width . 'x' .  $photo->res_height]) ?>
+                        ['escape' => false, 'data-lightbox' => 'gallery',
+                            'data-title' => $photo->description . '<br>' . 'Resolution:' . $photo->res_width . 'x' .  $photo->res_height]) ?>
 
-                    <h4><?= $photo->name ?></h4>
+                    <h4 class="mb-1"><?= $photo->name ?></h4>
 
                     <!--
                         Display photo price. Original price is struck and discounted price and percentage is displayed
                         only if the product has been discounted.  Otherwise, the original price is shown.
                     -->
-                    <p>
+                    <p class="m-auto">
                         <?php
                         if (!is_null($photo->discount_price) and $photo->price > $photo->discount_price) {
                             $discount_percent = round((1 - ($photo->discount_price / $photo->price)) * 100);
@@ -56,7 +57,7 @@
                         ?>
                     </p>
 
-                    <p><?= ucfirst($photo->category->name) ?></p>
+                    <p class="mb-2"><?= ucfirst($photo->category->name) ?></p>
                     <button class="button" onclick="addToCart(<?= $photo->id ?>)">Add to Cart</button>
                 </div>
             <?php endforeach; ?>
@@ -86,15 +87,16 @@
             photosDiv.innerHTML = ''
 
             if (photosJson.photos.length === 0) {
-                photosDiv.innerHTML = '<br><h4>There are no photos matching this category currently</h4>'
+                photosDiv.innerHTML = '<h4 class="text-center">There are no photos matching this category currently</h4>'
             } else {
                 /* Re-construct the photo list using DOM */
                 for (let i = 0; i < photosJson.photos.length; ++i) {
                     const column = document.createElement('div');
-                    column.className = "col-4";
+                    column.className = "col-3";
 
                     const image = document.createElement('img');
                     image.src = "/img/<?= WATERMARK_PHOTO_PATH ?>/" + photosJson.photos[i].file_name;
+                    image.className = 'w-100';
 
                     const imageAnchor = document.createElement('a');
                     imageAnchor.href = "/img/<?= WATERMARK_PHOTO_PATH ?>/" + photosJson.photos[i].file_name;
@@ -128,10 +130,10 @@
                     categoryName.innerText = photosJson.photos[i].category.name;
                     column.appendChild(categoryName);
 
-                    const addToCartButton = document.createElement('a');
-                    addToCartButton.href = `/landing/add-to-cart/${photosJson.photos[i].category.id}`;
+                    const addToCartButton = document.createElement('button');
                     addToCartButton.className = 'button';
                     addToCartButton.innerText = 'Add to Cart';
+                    addToCartButton.setAttribute('onclick', `addToCart(${photosJson.photos[i].id})`);
                     column.appendChild(addToCartButton);
 
                     photosDiv.appendChild(column);
@@ -148,7 +150,7 @@
 
         xhr.onload = function() {
             const statusJson = JSON.parse(this.responseText);
-            const topLevelContainer = document.getElementById('top-level-container');
+            const photosRow = document.getElementById('photos');
 
             const flashDiv = document.createElement('div');
             flashDiv.className = statusJson.ok === true ? 'message success' : 'message error'
@@ -156,7 +158,7 @@
                 'The photo has been added to the shopping cart!' : 'The photo is already in the cart!';
             flashDiv.setAttribute('onclick', "this.classList.add('hidden');");
 
-            topLevelContainer.prepend(flashDiv);
+            photosRow.prepend(flashDiv);
             setTimeout(_ => { flashDiv.remove(); }, 2000);
         };
 

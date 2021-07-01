@@ -4,8 +4,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Natures Bonding Gift</title>
 
-    <?= $this->Html->meta('icon', 'img/nbg-logo.png') ?>
-    <?= $this->Html->css(['bootstrap.min', 'lightbox', 'rubik-font.css', 'style']) ?>
+    <?= $this->Html->meta('icon', 'img/logo.png') ?>
+    <?= $this->Html->css(['cake', 'bootstrap.min', 'lightbox', 'style']) ?>
     <?= $this->Html->script(['jquery.min', 'lightbox.min']) ?>
 
     <?= $this->fetch('meta') ?>
@@ -39,29 +39,35 @@
     </div>
 </nav>
 
-<div id="top-level-container" class="container">
+<div class="container">
     <?= $this->Flash->render() ?>
     <?= $this->fetch('content') ?>
 </div>
 
 <footer class="footer bg-dark">
     <div class="container">
-        <div class="row">
-            <div class="col-auto">
+        <div class="row justify-content-center ">
+            <div class="col-5">
                 <?= $this->Html->image('logo.png', ['width' => '128px']) ?>
                 <p class="text-light">Our Purpose Is To Find You A Gift Of Nature.</p>
             </div>
 
-            <div class="col-auto">
-                <h3>Useful Links</h3>
-                <a class="link-light" href=<?= $this->Url->build(['controller' => 'Landing', 'action' => 'about']) ?>>About </a><br>
-                <a class="link-light" href=<?= $this->Url->build(['controller' => 'Enquiries', 'action' => 'add']) ?>>Contact Us</a><br>
-                <a class="link-light">Delivery</a><br>
-                <a class="link-light">FAQ</a><br>
-                <a class="link-light">Privacy Policy</a><br>
+            <div class="col-4">
+                <ul class="list-unstyled">
+                    <li><h3>Useful Links</h3></li>
+                    <li>
+                        <a class="link-light" href=<?= $this->Url->build(['controller' => 'Landing', 'action' => 'about']) ?>>About </a><br>
+                    </li>
+                    <li>
+                        <a class="link-light" href=<?= $this->Url->build(['controller' => 'Enquiries', 'action' => 'add']) ?>>Contact Us</a><br>
+                    </li>
+                    <li class="text-light">Delivery</li>
+                    <li class="text-light">FAQ</li>
+                    <li class="text-light">Privacy Policy</li>
+                </ul>
             </div>
 
-            <div class="col-auto">
+            <div class="col-3">
                 <h3>Follow Us</h3>
                 <?= $this->Html->image('facebook.png', ['width' => '32px', 'height' => '32px']) ?>
                 <?= $this->Html->image('instagram.png', ['width' => '32px', 'height' => '32px']) ?>
@@ -70,7 +76,7 @@
         </div>
 
         <hr class="bg-light">
-        <p class="text-light text-center pb-4">Copyright 2021 - Natures Bonding Gift</p>
+        <p class="text-light text-center pb-4 m-0">Copyright 2021 - Natures Bonding Gift</p>
     </div>
 </footer>
 
