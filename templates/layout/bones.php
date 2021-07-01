@@ -7,7 +7,7 @@
 
 
     <?= $this->Html->meta('icon', 'img/nbg-logo.png') ?>
-    <?= $this->Html->css(['normalize.min', 'milligram.min', 'cake', 'bootstrap', 'lightbox', 'rubik-font.css', 'style']) ?>
+    <?= $this->Html->css(['normalize.min', 'milligram.min', 'cake', 'bootstrap.min', 'lightbox', 'rubik-font.css', 'style']) ?>
     <?= $this->Html->script(['jquery.min', 'lightbox.min']) ?>
 
     <?= $this->fetch('meta') ?>
