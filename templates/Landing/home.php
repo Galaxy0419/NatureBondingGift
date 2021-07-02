@@ -1,4 +1,3 @@
-<!---------Products Section-------------->
 <?php
 /**
  * @var \App\View\AppView $this
@@ -24,23 +23,13 @@
             <h4 class="text-center">There are no photos matching this category currently</h4>
         <?php else: ?>
             <?php foreach ($photos as $photo): ?>
-                <!--
-                    For loop will cycle through all the photos in the database object passed from LandingController.php
-                    and display them on the page.  The code below sets a string variable containing the path to the watermarked photo.
-                -->
                 <div class="col-3">
                     <?= $this->Html->link(
                         $this->Html->image(WATERMARK_PHOTO_PATH . '/' . $photo->file_name, ['class' => 'w-100']),
                         'img' . '/' . WATERMARK_PHOTO_PATH . '/' . $photo->file_name,
                         ['escape' => false, 'data-lightbox' => 'gallery',
                             'data-title' => $photo->description . '<br>' . 'Resolution:' . $photo->res_width . 'x' .  $photo->res_height]) ?>
-
                     <h4 class="mb-1"><?= $photo->name ?></h4>
-
-                    <!--
-                        Display photo price. Original price is struck and discounted price and percentage is displayed
-                        only if the product has been discounted.  Otherwise, the original price is shown.
-                    -->
                     <p class="m-auto">
                         <?php
                         if (!is_null($photo->discount_price) and $photo->price > $photo->discount_price) {
@@ -52,7 +41,6 @@
                         }
                         ?>
                     </p>
-
                     <p class="mb-2"><?= ucfirst($photo->category->name) ?></p>
                     <button class="btn btn-primary mb-4" onclick="addToCart(<?= $photo->id ?>)">Add to Cart</button>
                 </div>
