@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\Model\Entity\Photo;
 use Authorization\Controller\Component\AuthorizationComponent;
+use Cake\Http\Response;
 use Exception;
 use Imagick;
 use ImagickDraw;
@@ -87,7 +88,7 @@ class PhotosController extends AppController
             rad2deg(atan($geo['height'] / $geo['width'])), 'Nature\'s Bonding Gift');
         $imagickImg->writeImage(WWW_ROOT . 'img' . DS . WATERMARK_PHOTO_PATH . DS . $photo->file_name);
 
-        $attachment->moveTo(WWW_ROOT . 'img' . DS . ORIGINAL_PHOTO_PATH . DS . $photo->file_name);
+        $attachment->moveTo(RESOURCES . ORIGINAL_PHOTO_PATH . DS . $photo->file_name);
     }
 
     /**
@@ -149,7 +150,7 @@ class PhotosController extends AppController
                     $photo = $this->Photos->patchEntity($photo, $requestData);
                     $this->detectResolutionAndWatermark($attachment, $photo);
 
-                    unlink(WWW_ROOT . 'img' . DS . ORIGINAL_PHOTO_PATH . DS . $oldFileName);
+                    unlink(RESOURCES . ORIGINAL_PHOTO_PATH . DS . $oldFileName);
                     unlink(WWW_ROOT . 'img' . DS . WATERMARK_PHOTO_PATH . DS . $oldFileName);
 
                     $this->savePhoto($photo);
@@ -182,7 +183,7 @@ class PhotosController extends AppController
         $photo = $this->Photos->get($id);
 
         if ($this->Photos->delete($photo)
-                && unlink(WWW_ROOT . 'img' . DS . ORIGINAL_PHOTO_PATH . DS . $photo->file_name)
+                && unlink(RESOURCES . ORIGINAL_PHOTO_PATH . DS . $photo->file_name)
                 && unlink(WWW_ROOT . 'img' . DS . WATERMARK_PHOTO_PATH . DS . $photo->file_name)) {
             $this->Flash->success(__('The photo has been deleted.'));
         } else {
@@ -190,5 +191,16 @@ class PhotosController extends AppController
         }
 
         return $this->redirect(['action' => 'index']);
+    }
+
+    /**
+     * Check if the request is authenticated to get the original photo
+     *
+     * @param string $fileName
+     * @return Response
+     */
+    public function getOriginalPhoto(string $fileName): Response {
+        $this->autoRender = false;
+        return $this->response->withFile(RESOURCES . ORIGINAL_PHOTO_PATH . DS . $fileName);
     }
 }

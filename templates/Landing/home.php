@@ -8,20 +8,16 @@
 ?>
 
 <div class="small-container">
-    <h1 class="text-center my-5 pb-4 border-bottom border-4">All Photos</h1>
-
+    <h1 class="text-center mt-5 pb-4 border-bottom border-4">All Photos</h1>
+    <br>
     <div class="row justify-content-start">
-        <div class="col-sm-auto">
-            <h4>Categories:</h4>
-        </div>
+        <h4 class="col-sm-auto m-0">Categories:</h4>
         <button class="btn btn-primary col-sm-auto ms-2" onclick="reloadPhotoByCategory(null)">All</button>
         <?php foreach ($categories as $category): ?>
             <button class="btn btn-primary col-sm-auto ms-2" onclick="reloadPhotoByCategory(<?= $category->id ?>)"><?= $category->name ?></button>
         <?php endforeach; ?>
     </div>
-
-    <br><br>
-
+    <br>
     <div id="photos" class="row">
         <?php if ($photos->count() == 0): ?>
             <br>
@@ -58,7 +54,7 @@
                     </p>
 
                     <p class="mb-2"><?= ucfirst($photo->category->name) ?></p>
-                    <button class="btn btn-primary" onclick="addToCart(<?= $photo->id ?>)">Add to Cart</button>
+                    <button class="btn btn-primary mb-4" onclick="addToCart(<?= $photo->id ?>)">Add to Cart</button>
                 </div>
             <?php endforeach; ?>
         <?php endif; ?>

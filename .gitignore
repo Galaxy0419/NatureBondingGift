@@ -45,9 +45,9 @@ nbproject/*
 # Photo directories #
 #####################
 # Original photos
-webroot/img/original-photos/*.jpeg
-webroot/img/original-photos/*.jpg
-webroot/img/original-photos/*.png
+resources/original-photos/*.jpeg
+resources/original-photos/*.jpg
+resources/original-photos/*.png
 # Watermark photos
 webroot/img/watermark-photos/*.jpeg
 webroot/img/watermark-photos/*.jpg
