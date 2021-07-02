@@ -27,7 +27,7 @@
                         </div>
 
                         <div class="col-2 text-center align-self-center">
-                            <button class="button" onclick="removePhoto(<?= $photo->id ?>,
+                            <button class="btn btn-primary" onclick="removePhoto(<?= $photo->id ?>,
                                 <?= $photo->discount_price === null ? $photo->price : $photo->discount_price ?>)">Remove</button>
                         </div>
 
@@ -52,7 +52,7 @@
             <?php endif; ?>
 
             <div id="clear-cart-button" class="list-group-item bg-light">
-                <button class="button" onclick="clearCart()">Clear Cart</button>
+                <button class="btn btn-primary" onclick="clearCart()">Clear Cart</button>
             </div>
         </div>
 

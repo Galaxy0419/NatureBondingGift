@@ -14,9 +14,9 @@
         <div class="col-sm-auto">
             <h4>Categories:</h4>
         </div>
-        <button class="button col-sm-auto ms-2" onclick="reloadPhotoByCategory(null)">All</button>
+        <button class="btn btn-primary col-sm-auto ms-2" onclick="reloadPhotoByCategory(null)">All</button>
         <?php foreach ($categories as $category): ?>
-            <button class="button col-sm-auto ms-2" onclick="reloadPhotoByCategory(<?= $category->id ?>)"><?= $category->name ?></button>
+            <button class="btn btn-primary col-sm-auto ms-2" onclick="reloadPhotoByCategory(<?= $category->id ?>)"><?= $category->name ?></button>
         <?php endforeach; ?>
     </div>
 
@@ -58,7 +58,7 @@
                     </p>
 
                     <p class="mb-2"><?= ucfirst($photo->category->name) ?></p>
-                    <button class="button" onclick="addToCart(<?= $photo->id ?>)">Add to Cart</button>
+                    <button class="btn btn-primary" onclick="addToCart(<?= $photo->id ?>)">Add to Cart</button>
                 </div>
             <?php endforeach; ?>
         <?php endif; ?>
@@ -106,10 +106,12 @@
                     column.appendChild(imageAnchor);
 
                     const name = document.createElement('h4');
+                    name.className = 'mb-1';
                     name.innerText = photosJson.photos[i].name;
                     column.appendChild(name);
 
                     const price = document.createElement('p');
+                    price.className = 'mb-auto';
                     if (photosJson.photos[i].discount_price === null) {
                         price.innerText = '$' + photosJson.photos[i].price.toFixed(2);
                     } else {
@@ -127,11 +129,12 @@
                     column.appendChild(price);
 
                     const categoryName = document.createElement('p');
+                    categoryName.className = 'mb-2';
                     categoryName.innerText = photosJson.photos[i].category.name;
                     column.appendChild(categoryName);
 
                     const addToCartButton = document.createElement('button');
-                    addToCartButton.className = 'button';
+                    addToCartButton.className = 'btn btn-primary';
                     addToCartButton.innerText = 'Add to Cart';
                     addToCartButton.setAttribute('onclick', `addToCart(${photosJson.photos[i].id})`);
                     column.appendChild(addToCartButton);
