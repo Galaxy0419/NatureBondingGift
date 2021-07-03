@@ -18,11 +18,11 @@ $this->Paginator->setTemplates([
 <div class="small-container">
     <h1 class="text-center mt-5 pb-4 border-bottom border-4">All Photos</h1>
     <br>
-    <div class="row justify-content-start">
-        <h4 class="col-sm-auto m-0">Categories:</h4>
-        <button class="btn btn-primary col-sm-auto ms-2" onclick="reloadPhotoByCategory(null)">All</button>
+    <div class="d-flex flex-row justify-content-start mb-4">
+        <h4 class="m-0">Categories:</h4>
+        <button class="btn btn-primary ms-4" onclick="reloadPhotoByCategory(null)">All</button>
         <?php foreach ($categories as $category): ?>
-            <button class="btn btn-primary col-sm-auto ms-2" onclick="reloadPhotoByCategory(<?= $category->id ?>)"><?= $category->name ?></button>
+            <button class="btn btn-primary ms-2" onclick="reloadPhotoByCategory(<?= $category->id ?>)"><?= $category->name ?></button>
         <?php endforeach; ?>
     </div>
     <br>
@@ -135,7 +135,7 @@ $this->Paginator->setTemplates([
                     column.appendChild(categoryName);
 
                     const addToCartButton = document.createElement('button');
-                    addToCartButton.className = 'btn btn-primary';
+                    addToCartButton.className = 'btn btn-primary mb-4';
                     addToCartButton.innerText = 'Add to Cart';
                     addToCartButton.setAttribute('onclick', `addToCart(${photosJson.photos[i].id})`);
                     column.appendChild(addToCartButton);
