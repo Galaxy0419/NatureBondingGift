@@ -40,8 +40,8 @@ class LandingController extends AppController
         $this->set(compact('categories'));
 
         $this->loadModel('Photos');
-        $photos = $this->Photos->find('all', ['contain' => ['Categories']])
-            ->where(is_null($categoryId) ? [] : ['category_id' => $categoryId]);
+        $photos = $this->paginate($this->Photos->find('all', ['contain' => ['Categories']])
+            ->where($categoryId === null ? [] : ['category_id' => $categoryId]), ['limit' => 32, 'maxLimit' => 32]);
         $this->set(compact('photos'));
 
         $this->viewBuilder()->setLayout('bones');

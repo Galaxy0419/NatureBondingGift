@@ -4,6 +4,15 @@
  * @var \App\Model\Entity\Category[]|\Cake\Collection\CollectionInterface $categories
  * @var \App\Model\Entity\Photo[]|\Cake\Collection\CollectionInterface $photos
  */
+
+$this->Paginator->setTemplates([
+    'prevActive' => '<li class="page-item"><a class="page-link" href="{{url}}">{{text}}</a></li>',
+    'prevDisabled' => '<li class="page-item disabled"><a class="page-link" href="{{url}}">{{text}}</a></li>',
+    'number' => '<li class="page-item"><a class="page-link" href="{{url}}">{{text}}</a></li>',
+    'current' => '<li class="page-item active"><a class="page-link" href="{{url}}">{{text}}</a></li>',
+    'nextActive' => '<li class="page-item"><a class="page-link" href="{{url}}">{{text}}</a></li>',
+    'nextDisabled' => '<li class="page-item disabled"><a class="page-link" href="{{url}}">{{text}}</a></li>'
+]);
 ?>
 
 <div class="small-container">
@@ -48,6 +57,14 @@
         <?php endif; ?>
     </div>
 </div>
+
+<br><br>
+
+<ul class="pagination justify-content-center">
+    <?= $this->Paginator->prev('< ' . __('Previous'), ['class' => 'page-link']) ?>
+    <?= $this->Paginator->numbers() ?>
+    <?= $this->Paginator->next(__('Next') . ' >') ?>
+</ul>
 
 <br><br>
 
@@ -140,7 +157,7 @@
             const photosRow = document.getElementById('photos');
 
             const flashDiv = document.createElement('div');
-            flashDiv.className = statusJson.ok === true ? 'message success' : 'message error'
+            flashDiv.className = statusJson.ok === true ? 'alert alert-success' : 'alert alert-danger'
             flashDiv.innerText = statusJson.ok === true ?
                 'The photo has been added to the shopping cart!' : 'The photo is already in the cart!';
             flashDiv.setAttribute('onclick', "this.classList.add('hidden');");

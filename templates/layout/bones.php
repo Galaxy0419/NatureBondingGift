@@ -5,7 +5,7 @@
     <title>Home - Natures Bonding Gift</title>
 
     <?= $this->Html->meta('icon', 'img/logo.png') ?>
-    <?= $this->Html->css(['cake', 'bootstrap.min', 'lightbox', 'style']) ?>
+    <?= $this->Html->css(['bootstrap.min', 'lightbox', 'style']) ?>
     <?= $this->Html->script(['jquery.min', 'lightbox.min']) ?>
 
     <?= $this->fetch('meta') ?>
@@ -40,7 +40,6 @@
 </nav>
 
 <div class="container">
-    <?= $this->Flash->render() ?>
     <?= $this->fetch('content') ?>
 </div>
 
