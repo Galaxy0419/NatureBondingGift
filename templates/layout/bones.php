@@ -6,7 +6,7 @@
 
     <?= $this->Html->meta('icon', 'img/logo.png') ?>
     <?= $this->Html->css(['bootstrap.min', 'lightbox', 'style']) ?>
-    <?= $this->Html->script(['jquery.min', 'lightbox.min']) ?>
+    <?= $this->Html->script(['bootstrap.min', 'jquery.min', 'lightbox.min']) ?>
 
     <?= $this->fetch('meta') ?>
     <?= $this->fetch('css') ?>
@@ -20,7 +20,11 @@
             <?= $this->Html->image('logo.png', ['width' => '96px']) ?>
         </div>
 
-        <div class="collapse navbar-collapse">
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navmenu">
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item">
                     <a href="<?= $this->Url->build(['controller' => 'Landing', 'action' => 'home']) ?>" class="nav-link">Home</a>
