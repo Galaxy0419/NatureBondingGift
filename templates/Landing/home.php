@@ -32,7 +32,7 @@ $this->Paginator->setTemplates([
             <h4 class="text-center">There are no photos matching this category currently</h4>
         <?php else: ?>
             <?php foreach ($photos as $photo): ?>
-                <div class="col-3">
+                <div class="col-6 col-md-3">
                     <?= $this->Html->link(
                         $this->Html->image(WATERMARK_PHOTO_PATH . '/' . $photo->file_name, ['class' => 'w-100']),
                         'img' . '/' . WATERMARK_PHOTO_PATH . '/' . $photo->file_name,
