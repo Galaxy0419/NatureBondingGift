@@ -22,18 +22,16 @@
             <?= $this->Form->create($photo, ['type' => 'file']) ?>
             <fieldset>
                 <legend><?= __('Edit Photo') ?></legend>
-                <?php
-                echo $this->Html->link('Add', 'categories/add', ['class' => 'button', 'style' => 'float:right']);
-                echo $this->Form->control('category_id', ['options' => $categories]);
-                echo $this->Form->control('name');
-                echo $this->Form->control('description');
-                echo $this->Form->control('price', ['id' => 'price']);
-                echo $this->Form->control('discount_price', ['id' => 'discount_price']);;
-                echo $this->Form->control('Discount Percentage', ['id' => 'discount_percentage']);
-                echo $this->Form->control('file', [
-                    'label' => 'Choose a new Photo (Optional)', 'type' => 'file', 'required' => false,
-                    'accept' => 'image/jpeg,image/png', 'error' => false]);
-                ?>
+                <?= $this->Html->link('Add', '/categories/add', ['class' => 'button', 'style' => 'float:right']) ?>
+                <?= $this->Form->control('category_id', ['options' => $categories]) ?>
+                <?= $this->Form->control('name') ?>
+                <?= $this->Form->control('description') ?>
+                <?= $this->Form->control('price', ['id' => 'price']) ?>
+                <?= $this->Form->control('discount_price', ['id' => 'discount-price']) ?>
+                <?= $this->Form->control('Discount Percentage', ['id' => 'discount-percentage']) ?>
+                <?= $this->Form->control('file', ['label' => 'Choose a Photo',
+                    'type' => 'file', 'accept' => 'image/jpeg,image/png', 'id' => 'file-upload-control', 'error' => false]) ?>
+                <img src="#" alt="Photo Preview" width="480" height="270" id="preview-image" style="display: none; object-fit: contain">
             </fieldset>
             <?= $this->Form->button(__('Submit')) ?>
             <?= $this->Form->end()?>
@@ -43,8 +41,8 @@
 
 <script>
     const price = document.getElementById('price')
-    const discountPrice = document.getElementById('discount_price')
-    const discountPercentage = document.getElementById('discount_percentage')
+    const discountPrice = document.getElementById('discount-price')
+    const discountPercentage = document.getElementById('discount-percentage')
 
     price.addEventListener('change', () => {
         discountPrice.value = '';
@@ -76,4 +74,10 @@
             alert("Original price is empty. Please enter original price first.")
         }
     });
+
+    document.getElementById('file-upload-control').addEventListener('change', (ev) => {
+        const previewImg = document.getElementById('preview-image');
+        previewImg.src = window.URL.createObjectURL(ev.target.files[0]);
+        previewImg.style.display = '';
+    })
 </script>
