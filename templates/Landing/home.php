@@ -34,20 +34,20 @@ $this->Paginator->setTemplates([
             <?php foreach ($photos as $photo): ?>
                 <div class="col-6 col-md-3">
                     <?= $this->Html->link(
-                        $this->Html->image(WATERMARK_PHOTO_PATH . '/' . $photo->file_name, ['class' => 'w-100']),
-                        'img' . '/' . WATERMARK_PHOTO_PATH . '/' . $photo->file_name,
+                        $this->Html->image(WATERMARK_PHOTO_PATH . '/' . $photo->id, ['class' => 'w-100']),
+                        'img' . '/' . WATERMARK_PHOTO_PATH . '/' . $photo->id,
                         ['escape' => false, 'data-lightbox' => 'gallery',
                             'data-title' => $photo->description . '<br>' . 'Resolution:' . $photo->res_width . 'x' .  $photo->res_height]) ?>
                     <h4 class="mb-1"><?= $photo->name ?></h4>
                     <p class="m-auto">
                         <?php
-                        if (!is_null($photo->discount_price) and $photo->price > $photo->discount_price) {
-                            $discount_percent = round((1 - ($photo->discount_price / $photo->price)) * 100);
-                            echo '<s>$' . $this->Number->precision($photo->price, 2) . '</s>'
-                                . ' $' . $this->Number->precision($photo->discount_price, 2) . ' <b>' . $discount_percent . '% OFF!! </b>';
-                        } else {
-                            echo '$' . $this->Number->precision($photo->price, 2);
-                        }
+                            if (!is_null($photo->discount_price) and $photo->price > $photo->discount_price) {
+                                $discount_percent = round((1 - ($photo->discount_price / $photo->price)) * 100);
+                                echo '<s>$' . $this->Number->precision($photo->price, 2) . '</s>'
+                                    . ' $' . $this->Number->precision($photo->discount_price, 2) . ' <b>' . $discount_percent . '% OFF!! </b>';
+                            } else {
+                                echo '$' . $this->Number->precision($photo->price, 2);
+                            }
                         ?>
                     </p>
                     <p class="mb-2"><?= ucfirst($photo->category->name) ?></p>
@@ -68,7 +68,7 @@ $this->Paginator->setTemplates([
 
 <br><br>
 
-<script type="text/javascript">
+<script>
     document.addEventListener("contextmenu", (e) => {
         if (e.target.nodeName === "IMG") {
             e.preventDefault();
@@ -96,11 +96,11 @@ $this->Paginator->setTemplates([
                     column.className = "col-3";
 
                     const image = document.createElement('img');
-                    image.src = "/img/<?= WATERMARK_PHOTO_PATH ?>/" + photosJson.photos[i].file_name;
+                    image.src = "/img/<?= WATERMARK_PHOTO_PATH ?>/" + photosJson.photos[i].id;
                     image.className = 'w-100';
 
                     const imageAnchor = document.createElement('a');
-                    imageAnchor.href = "/img/<?= WATERMARK_PHOTO_PATH ?>/" + photosJson.photos[i].file_name;
+                    imageAnchor.href = "/img/<?= WATERMARK_PHOTO_PATH ?>/" + photosJson.photos[i].id;
                     imageAnchor.setAttribute('data-lightbox', 'gallery');
                     imageAnchor.setAttribute('data-title', `${photosJson.photos[i].name}<br>Resolution: ${photosJson.photos[i].res_width}x${photosJson.photos[i].res_height}`);
                     imageAnchor.appendChild(image);

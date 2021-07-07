@@ -94,13 +94,6 @@ class PhotosTable extends Table
             ->dateTime('create_date')
             ->notEmptyDateTime('create_date');
 
-        $validator
-            ->scalar('file_name')
-            ->maxLength('file_name', 255)
-            ->requirePresence('file_name', 'create')
-            ->notEmptyFile('file_name')
-            ->add('file_name', 'unique', ['rule' => 'validateUnique', 'provider' => 'table']);
-
         return $validator;
     }
 
@@ -113,9 +106,7 @@ class PhotosTable extends Table
      */
     public function buildRules(RulesChecker $rules): RulesChecker
     {
-        $rules->add($rules->isUnique(['file_name']), ['errorField' => 'file_name']);
         $rules->add($rules->existsIn(['category_id'], 'Categories'), ['errorField' => 'category_id']);
-
         return $rules;
     }
 }

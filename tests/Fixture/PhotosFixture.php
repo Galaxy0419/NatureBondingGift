@@ -26,13 +26,11 @@ class PhotosFixture extends TestFixture
         'price' => ['type' => 'float', 'length' => null, 'precision' => null, 'unsigned' => false, 'null' => false, 'default' => null, 'comment' => ''],
         'discount_price' => ['type' => 'float', 'length' => null, 'precision' => null, 'unsigned' => false, 'null' => true, 'default' => null, 'comment' => ''],
         'create_date' => ['type' => 'timestamp', 'length' => null, 'precision' => null, 'null' => false, 'default' => 'CURRENT_TIMESTAMP', 'comment' => ''],
-        'file_name' => ['type' => 'string', 'length' => 255, 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'comment' => '', 'precision' => null],
         '_indexes' => [
             'category_id_idx' => ['type' => 'index', 'columns' => ['category_id'], 'length' => []],
         ],
         '_constraints' => [
             'primary' => ['type' => 'primary', 'columns' => ['id'], 'length' => []],
-            'file_name_UNIQUE' => ['type' => 'unique', 'columns' => ['file_name'], 'length' => []],
             'category_id' => ['type' => 'foreign', 'columns' => ['category_id'], 'references' => ['categories', 'id'], 'update' => 'noAction', 'delete' => 'noAction', 'length' => []],
         ],
         '_options' => [
@@ -59,7 +57,6 @@ class PhotosFixture extends TestFixture
                 'price' => 1,
                 'discount_price' => 1,
                 'create_date' => 1619006929,
-                'file_name' => 'Lorem ipsum dolor sit amet',
             ],
         ];
         parent::init();

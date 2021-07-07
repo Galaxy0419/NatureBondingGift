@@ -15,9 +15,9 @@
                 <div id="<?= $photo->id ?>" class="list-group-item bg-light">
                     <div class="row">
                         <div class="col-3">
-                            <?= $this->Html->image(WATERMARK_PHOTO_PATH . '/' . $photo->file_name, [
-                                'alt' => $photo->file_name, 'class' => 'w-100',
-                                'url' => 'img' . DS . WATERMARK_PHOTO_PATH . DS . $photo->file_name
+                            <?= $this->Html->image(WATERMARK_PHOTO_PATH . '/' . $photo->id, [
+                                'alt' => $photo->description, 'class' => 'w-100',
+                                'url' => 'img' . DS . WATERMARK_PHOTO_PATH . DS . $photo->id
                             ]) ?>
                         </div>
 

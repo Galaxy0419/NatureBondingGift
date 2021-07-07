@@ -17,7 +17,7 @@ use Cake\ORM\Entity;
  * @property int $res_height
  * @property float $price
  * @property float|null $discount_price
- * @property \Cake\I18n\FrozenTime $create_date
+ * @property FrozenTime $create_date
  * @property string $file_name
  *
  * @property \App\Model\Entity\Category $category
