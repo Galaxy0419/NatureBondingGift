@@ -418,4 +418,9 @@ return [
     'Session' => [
         'defaults' => 'php',
     ],
+
+    /* Skip authorization for debug kit */
+    'DebugKit' => [
+        'ignoreAuthorization' => true
+    ]
 ];
