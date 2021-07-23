@@ -66,27 +66,24 @@
     </div>
 </div>
 
-<script src="https://www.paypal.com/sdk/js?client-id=Aadi2rCSz_LWQVPHtxqqo_dNVkGEM6V7pn58zOxgOhRGxwzZDlbzGmc5QW2iSpEWijf0-X497P_khFqJ&currency=AUD"></script>
+<script src="https://www.paypal.com/sdk/js?client-id=AZoCJH2z26LaucwGZhdZ0Cj9Jr_kYqGpZ98HAEH-C7vCur-VRwUlOlVmzotA7S9dlxZvZ3ADNs_O6S--&currency=AUD"></script>
 <script>
     let total = <?= $this->Number->precision($total,2) ?>;
 
     paypal.Buttons({
-        style:{
-            color: 'gold',
-            label: 'pay'
-        },
-
         createOrder: function(data, actions) {
             return actions.order.create({
                 purchase_units: [{ amount: { value: total } }]
             });
         },
-
-        onApprove: function(data, actions) {
-            return actions.order.capture().then(function(details) {
-                // Show a success message to the buyer
-                alert( details.payer.name.given_name + ' your order has been placed successfully!');
-            });
+        onApprove: function (data) {
+            fetch(`/landing/on-transaction-approved/${data.orderID}`)
+            .then((response) => { return response.json(); })
+            .then((json) => {
+                alert(json.status === "COMPLETED" ? "The purchase was successful!"
+                    : `Unknown error occurred! Order status: ${json.status}. Please retry or send an inquiry.`);
+                window.location.replace('/landing/home');
+            })
         }
     }).render('#paypal-button-container');
 

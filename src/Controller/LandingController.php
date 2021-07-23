@@ -8,6 +8,9 @@ use Authentication\Controller\Component\AuthenticationComponent;
 use Authorization\Controller\Component\AuthorizationComponent;
 use Cake\Datasource\Exception\RecordNotFoundException;
 use Cake\Http\Response;
+use PayPalCheckoutSdk\Core\PayPalHttpClient;
+use PayPalCheckoutSdk\Core\SandboxEnvironment;
+use PayPalCheckoutSdk\Orders\OrdersCaptureRequest;
 
 /**
  * @property AuthenticationComponent Authentication
@@ -138,5 +141,33 @@ class LandingController extends AppController
     {
         $this->autoRender = false;
         $this->request->getSession()->delete('cart');
+    }
+
+    /**
+     * Check if transaction is really approved
+     *
+     * @param $orderId
+     * @return Response
+     */
+    public function onTransactionApproved($orderId): Response
+    {
+        $this->autoRender = false;
+
+        $request = new OrdersCaptureRequest($orderId);
+        $paypalResponse = (new PayPalHttpClient(new SandboxEnvironment(
+            "AZoCJH2z26LaucwGZhdZ0Cj9Jr_kYqGpZ98HAEH-C7vCur-VRwUlOlVmzotA7S9dlxZvZ3ADNs_O6S--",
+            "ED9L0YtE25y3XIbJh3C5qMDHQ4aE7ourr29ag-ahXUB3AEcE-GwV8Es-89D-7TPLASwNZInRkcx3MvRU")))->execute($request);
+
+        /* Convert Paypal HTTP response to cakephp native response */
+        $this->response = $this->response->withStatus($paypalResponse->statusCode);
+        unset($paypalResponse->headers['']);
+        foreach ($paypalResponse->headers as $key => $value) {
+            $this->response = $this->response->withHeader($key, $value);
+        }
+        $this->response = $this->response->withStringBody(json_encode($paypalResponse->result));
+
+        $this->request->getSession()->delete('cart');
+
+        return $this->response;
     }
 }
