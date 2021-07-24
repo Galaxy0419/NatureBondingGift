@@ -164,6 +164,9 @@ $this->Paginator->setTemplates([
 
             photosRow.prepend(flashDiv);
             setTimeout(_ => { flashDiv.remove(); }, 2000);
+
+            const cartBadge = document.getElementById('photo-counter');
+            cartBadge.innerText = parseInt(cartBadge.innerText) + 1;
         };
 
         xhr.open('GET', `/landing/add-to-cart/${photoId}`);

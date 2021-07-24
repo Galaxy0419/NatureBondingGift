@@ -111,6 +111,9 @@
             if (total === 0) {
                 document.getElementById('cart-list').prepend(getNoItemListGroupItem());
             }
+
+            const cartBadge = document.getElementById('photo-counter');
+            cartBadge.innerText = parseInt(cartBadge.innerText) - 1;
         };
 
         xhr.open('GET', `/landing/remove-from-cart/${photoId}`);
@@ -129,6 +132,9 @@
             }
 
             document.getElementById('cart-list').prepend(getNoItemListGroupItem());
+
+            const cartBadge = document.getElementById('photo-counter');
+            cartBadge.innerText = 0;
         };
 
         xhr.open('GET', '/landing/clear-cart');

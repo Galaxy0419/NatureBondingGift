@@ -36,7 +36,15 @@
                     <a href="<?= $this->Url->build(['controller' => 'Enquiries', 'action' => 'add']) ?>" class="nav-link">Enquiry</a>
                 </li>
                 <li class="nav-item">
-                    <a href="<?= $this->Url->build(['controller' => 'Landing', 'action' => 'cart']) ?>" class="nav-link">Cart</a>
+                    <a href="<?= $this->Url->build(['controller' => 'Landing', 'action' => 'cart']) ?>" class="nav-link">
+                        Cart
+                        <span class="badge bg-secondary" id="photo-counter">
+                            <?php
+                                $cart = $this->request->getSession()->read('cart');
+                                echo is_null($cart) || count($cart) === 0 ? 0 : count($cart);
+                            ?>
+                        </span>
+                    </a>
                 </li>
             </ul>
         </div>
