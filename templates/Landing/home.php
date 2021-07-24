@@ -77,12 +77,9 @@ $this->Paginator->setTemplates([
     });
 
     function reloadPhotoByCategory(categoryId) {
-        let xhr = new XMLHttpRequest();
-
-        xhr.onload = function () {
-            /* Parse JSON response */
-            const photosJson = JSON.parse(this.responseText);
-
+        fetch(`/landing/home${categoryId === null ? '' : `/${categoryId}`}.json`)
+        .then((response) => { return response.json(); })
+        .then((photosJson) => {
             /* Clear all photos inside the div */
             const photosDiv = document.getElementById("photos");
             photosDiv.innerHTML = ''
@@ -143,22 +140,18 @@ $this->Paginator->setTemplates([
                     photosDiv.appendChild(column);
                 }
             }
-        };
-
-        xhr.open('GET', `/landing/home${categoryId === null ? '' : `/${categoryId}`}.json`);
-        xhr.send();
+        });
     }
 
     function addToCart(photoId) {
-        const xhr = new XMLHttpRequest();
-
-        xhr.onload = function() {
-            const statusJson = JSON.parse(this.responseText);
+        fetch(`/landing/add-to-cart/${photoId}`)
+        .then((response) => { return response.json(); })
+        .then((json) => {
             const photosRow = document.getElementById('photos');
 
             const flashDiv = document.createElement('div');
-            flashDiv.className = statusJson.ok === true ? 'alert alert-success' : 'alert alert-danger'
-            flashDiv.innerText = statusJson.ok === true ?
+            flashDiv.className = json.ok === true ? 'alert alert-success' : 'alert alert-danger'
+            flashDiv.innerText = json.ok === true ?
                 'The photo has been added to the shopping cart!' : 'The photo is already in the cart!';
             flashDiv.setAttribute('onclick', "this.classList.add('hidden');");
 
@@ -167,9 +160,6 @@ $this->Paginator->setTemplates([
 
             const cartBadge = document.getElementById('photo-counter');
             cartBadge.innerText = parseInt(cartBadge.innerText) + 1;
-        };
-
-        xhr.open('GET', `/landing/add-to-cart/${photoId}`);
-        xhr.send();
+        });
     }
 </script>

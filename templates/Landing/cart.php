@@ -100,9 +100,7 @@
     }
 
     function removePhoto(photoId, price) {
-        const xhr = new XMLHttpRequest();
-
-        xhr.onload = function() {
+        fetch(`/landing/remove-from-cart/${photoId}`).then(() => {
             document.getElementById(photoId).remove();
 
             total = total - price;
@@ -114,16 +112,11 @@
 
             const cartBadge = document.getElementById('photo-counter');
             cartBadge.innerText = parseInt(cartBadge.innerText) - 1;
-        };
-
-        xhr.open('GET', `/landing/remove-from-cart/${photoId}`);
-        xhr.send();
+        });
     }
 
     function clearCart() {
-        const xhr = new XMLHttpRequest();
-
-        xhr.onload = function() {
+        fetch('/landing/clear-cart').then(() => {
             document.getElementById('total').innerText = 'Total: $0.00';
 
             const cartTable = document.getElementById('cart-list');
@@ -135,9 +128,6 @@
 
             const cartBadge = document.getElementById('photo-counter');
             cartBadge.innerText = 0;
-        };
-
-        xhr.open('GET', '/landing/clear-cart');
-        xhr.send();
+        });
     }
 </script>
