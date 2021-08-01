@@ -27,6 +27,7 @@ class LandingController extends AppController
         parent::initialize();
         $this->Authentication->setConfig(['requireIdentity' => false]);
         $this->Authorization->skipAuthorization();
+        $this->viewBuilder()->setLayout('bones');
     }
 
     /**
@@ -47,7 +48,6 @@ class LandingController extends AppController
             ->where($categoryId === null ? [] : ['category_id' => $categoryId]), ['limit' => 32, 'maxLimit' => 32]);
         $this->set(compact('photos'));
 
-        $this->viewBuilder()->setLayout('bones');
         $this->viewBuilder()->setOption('serialize', ['photos']);
     }
 
@@ -58,7 +58,6 @@ class LandingController extends AppController
      */
     public function about()
     {
-        $this->viewBuilder()->setLayout('bones');
     }
 
     /**
@@ -108,7 +107,6 @@ class LandingController extends AppController
      */
     public function cart()
     {
-        $this->viewBuilder()->setLayout('bones');
         $cart = $this->request->getSession()->read('cart');
 
         $this->loadModel('Photos');
